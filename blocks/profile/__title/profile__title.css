@@ -1,0 +1,7 @@
+.profile__title{
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 336px;
+    margin-top:22px;
+    margin-bottom:25px;
+}

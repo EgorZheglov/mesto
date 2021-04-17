@@ -1,14 +1,12 @@
 .header{
     width:100%;
     max-width:880px;
-    margin-left:48px;
-    margin-right:48px;
     margin-top:28px;
     display:flex;
     flex-direction:row;
-    background-color:green;
     color:white;
     justify-content: space-between;
+    border-bottom:1px solid rgba(84, 84, 84, 1);
 }
 
 @media (max-width: 425px) {
