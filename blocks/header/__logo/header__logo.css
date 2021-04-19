@@ -5,6 +5,7 @@
 
 @media (max-width: 425px) {
 .header__logo{
+    margin-left:27px;
     height:42px;
     width:142px;
     }

@@ -1,0 +1,9 @@
+.elements__description-content{
+    display: flex;
+    align-items: center;
+    margin-top:25px;
+    margin-left:21px;
+    margin-bottom:31px;
+    justify-content: space-between;
+    width:calc(100% - 36px);
+}

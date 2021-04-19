@@ -5,7 +5,6 @@
     font-family:"Inter", Arial, sans-serif;
     align-items:center;
     flex-direction:column;
-    min-height: 100vh;
     background-color:Black;
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;

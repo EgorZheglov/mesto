@@ -9,18 +9,9 @@
     border-bottom:1px solid rgba(84, 84, 84, 1);
 }
 
-@media (max-width: 425px) {
-    .header{
-      margin-top:18px;
-      width:calc(100% - 32px);
-      margin-left:16px;
-      margin-right:16px;
-    }
-}
 
-@media (max-width: 768px) and (min-width: 425px) {
+@media (max-width: 768px) and (min-width: 426px) {
     .header{
-      box-sizing: border-box;
       width:calc(100% - 48px);
       margin-left:24px;
       margin-right:24px;
