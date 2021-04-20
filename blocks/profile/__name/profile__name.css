@@ -11,7 +11,7 @@
     max-width:294px;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 760px) {
     .profile__name{
         max-width:190px;
         margin-left:46px;
