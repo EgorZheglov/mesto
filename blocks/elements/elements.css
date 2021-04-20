@@ -10,6 +10,8 @@
 
 @media (max-width: 920px) and (min-width: 600px) {
     .elements{
+    width:calc(100% - 38px);
+    margin-left:19px;
     grid-template-columns:repeat(2, 1fr);
     grid-template-rows:repeat(3, min-content); 
     }
@@ -17,7 +19,9 @@
 
 @media (max-width: 599px) {
     .elements{
-    grid-template-columns:repeat(1, 1fr);
-    grid-template-rows:repeat(6, min-content); 
+        width:calc(100% - 38px);
+        margin-left:19px;
+        grid-template-columns:repeat(1, 1fr);
+        grid-template-rows:repeat(6, min-content); 
     }
 }
