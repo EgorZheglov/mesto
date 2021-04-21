@@ -19,12 +19,9 @@ let profileProfession = document.querySelector('.profile__profession');
 // он будет следить за событием “submit” - «отправка»
 
 
-nameInput.textContent = profileName.value;
-jobInput.textContent = profileProfession.value;
-
-
 function togglePopup(event){
-    event.preventDefault();
+    nameInput.textContent = profileName.value;
+    jobInput.textContent = profileProfession.value;
     popup.classList.toggle('popup_is-opened');
 }
 

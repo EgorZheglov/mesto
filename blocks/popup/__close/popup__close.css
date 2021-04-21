@@ -10,3 +10,7 @@
         right:0px;
     }
 }
+
+.popup__close:hover{
+    opacity:60%;
+}

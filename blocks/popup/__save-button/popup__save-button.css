@@ -10,4 +10,19 @@
     padding-bottom:16px;
     text-align: center;
     margin-bottom:25px;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22px;
+}
+
+.popup__save-button:hover{
+    opacity:80%;
+}
+
+@media (max-width: 550px){
+    .popup__save-button{
+        font-size: 14px;
+        line-height: 17px;
+    }
 }

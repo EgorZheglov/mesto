@@ -5,6 +5,11 @@
     display:flex;
     align-items:center;
     justify-content: center;
+    border-radius:2px;
+}
+
+.profile__add-button:hover{
+  opacity:60%;
 }
 
 @media (max-width: 750px) {
