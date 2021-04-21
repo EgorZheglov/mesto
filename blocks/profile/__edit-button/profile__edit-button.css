@@ -6,16 +6,21 @@
     justify-content: center;
     margin-left:18px;
     border:1px solid white;
+    margin-top:37px;
+    margin-bottom: 0;
 }
 
 .profile__edit-button:hover{
   opacity:60%;
 }
 
-@media (max-width: 750px) {
+@media (max-width: 760px) {
     .profile__edit-button{
+      margin-top:8px;
+      width:18px;
+      height:18px;
       flex-direction: column;
-      margin-right: 24.25px;
+      margin-right: 16px;
       margin-left: auto;
     }
 }

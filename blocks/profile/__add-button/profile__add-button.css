@@ -6,15 +6,20 @@
     align-items:center;
     justify-content: center;
     border-radius:2px;
+    margin-top:35px;
 }
 
 .profile__add-button:hover{
   opacity:60%;
 }
 
-@media (max-width: 750px) {
+@media (max-width: 760px) {
     .profile__add-button{
       width: 100%;
-      max-width:282px;
+      max-width:425px;
+      align-self: center;
+      margin-top:20px;
+      margin-right:0;
+      margin-left: 0;
     }
 }

@@ -2,8 +2,11 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    align-items: center;
     max-width: 336px;
-    margin-top:22px;
-    margin-bottom:25px;
+}
+
+@media (max-width: 760px) {
+.profile__title{
+    margin-top: 26px;
+}
 }

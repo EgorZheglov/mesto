@@ -19,24 +19,31 @@ let profileProfession = document.querySelector('.profile__profession');
 // он будет следить за событием “submit” - «отправка»
 
 
-function togglePopup(event){
-    nameInput.textContent = profileName.value;
-    jobInput.textContent = profileProfession.value;
-    popup.classList.toggle('popup_is-opened');
+function openPopup(event){
+    nameInput.value = profileName.textContent;
+    jobInput.value = profileProfession.textContent;
+    //Долго не мог понять: почему nameInput.value работает в данном случае, а nameInput.textContent - нет.
+    //Притом, что когда Попап открывается всторой раз за сессию - все работало ОК. Помог только метод научного тыка ;)
+    popup.classList.add('popup_is-opened');
 }
 
-function formSubmitHandler (evt) {
+function closePopup(event){
+    popup.classList.remove('popup_is-opened');
+}
+//разделить так?
+
+function submitFormHandler (evt) {
     evt.preventDefault(); 
     profileName.textContent = nameInput.value;
     profileProfession.textContent = jobInput.value;
-    popup.classList.toggle('popup_is-opened');
+    closePopup();
 }
 
-openPopupButton.addEventListener("click", togglePopup);
+openPopupButton.addEventListener("click", openPopup);
 
-closePopupButton.addEventListener("click", togglePopup);
+closePopupButton.addEventListener("click", closePopup);
 
-formElement.addEventListener('submit', formSubmitHandler); 
+formElement.addEventListener('submit', submitFormHandler); 
 
 //Не очень понятно, было ли необходимо, чтобы при первом открытии форма уже была заполнена.
 // По крайней мере сейчас изменения сохраняются после ввода.

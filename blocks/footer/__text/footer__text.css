@@ -8,10 +8,10 @@
     color: #545454;
 }
 
-@media (max-width: 1024px) {
-    .footer__text{
-      margin-left:19px;
-      font-size: 14px;
-      line-height: 17px;
-    }
+@media (max-width: 760px) {
+  .footer__text{
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+  }
 }
