@@ -13,7 +13,7 @@
         width:25px;
         height:25px;
         right:0px;
-
+        background-image: url(../../../images/Close_Icon320.svg);/*Визуально просто разница не очень заметна*/
     }
 }
 
