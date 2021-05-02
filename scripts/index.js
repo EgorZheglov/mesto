@@ -1,49 +1,47 @@
-let openPopupButton = document.querySelector('.profile__edit-button');
-let popup = document.querySelector('.popup');
-let closePopupButton = document.querySelector('.popup__close');
-// Находим форму в DOM
-let formElement = document.querySelector('.popup__form');// Воспользуйтесь методом querySelector()
-// Находим поля формы в DOM
-let nameInput = document.querySelector('#name_input');// Воспользуйтесь инструментом .querySelector()
-let jobInput = document.querySelector('#profession_input');// Воспользуйтесь инструментом .querySelector()
-
+let openPopupButtonEdit = document.querySelector('.profile__edit-button');
+let openPopupButtonAdd = document.querySelector('.profile__add-button');
+let popupEdit = document.querySelector('.popup-edit');
+let popupAdd = document.querySelector('.popup-add');
+let closePopupAddButton = document.querySelector('.popup__close_add');
+let closePopupEditButton = document.querySelector('.popup__close_edit');
+let formElement = document.querySelector('.popup__form');
+let nameInput = document.querySelector('#name_input');
+let jobInput = document.querySelector('#profession_input');
 let profileName = document.querySelector('.profile__name');
 let profileProfession = document.querySelector('.profile__profession');
 
-// Обработчик «отправки» формы, хотя пока
-// она никуда отправляться не будет
 
-
-
-// Прикрепляем обработчик к форме:
-// он будет следить за событием “submit” - «отправка»
-
-
-function openPopup(event){
+function openPopupEdit(evt){
     nameInput.value = profileName.textContent;
     jobInput.value = profileProfession.textContent;
-    //Долго не мог понять: почему nameInput.value работает в данном случае, а nameInput.textContent - нет.
-    //Притом, что когда Попап открывается всторой раз за сессию - все работало ОК. Помог только метод научного тыка ;)
-    popup.classList.add('popup_is-opened');
+    popupEdit.classList.add('popup_is-opened');
 }
 
-function closePopup(event){
-    popup.classList.remove('popup_is-opened');
+function closePopupEdit(evt){
+    popupEdit.classList.remove('popup_is-opened');
 }
-//разделить так?
+
+function openPopupAdd(evt){
+    popupAdd.classList.add('popup_is-opened');
+}
+
+function closePopupAdd(evt){
+    popupAdd.classList.remove('popup_is-opened');
+}
 
 function submitFormHandler (evt) {
-    evt.preventDefault(); 
     profileName.textContent = nameInput.value;
     profileProfession.textContent = jobInput.value;
     closePopup();
 }
 
-openPopupButton.addEventListener("click", openPopup);
+openPopupButtonEdit.addEventListener("click", openPopupEdit);
 
-closePopupButton.addEventListener("click", closePopup);
+openPopupButtonAdd.addEventListener("click", openPopupAdd);
+
+closePopupAddButton.addEventListener("click", closePopupAdd);
+
+closePopupEditButton.addEventListener("click", closePopupEdit);
 
 formElement.addEventListener('submit', submitFormHandler); 
 
-//Не очень понятно, было ли необходимо, чтобы при первом открытии форма уже была заполнена.
-// По крайней мере сейчас изменения сохраняются после ввода.

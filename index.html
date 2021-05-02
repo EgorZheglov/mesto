@@ -85,14 +85,24 @@
     <footer class="footer">
       <p class="footer__text">&copy;2021 Егор Жеглов.</p>
     </footer>
-    <div class="popup">
+    <div class="popup popup-edit">
       <div class="popup__container">
-          <button class="popup__close link" type="button"></button>
+          <button class="popup__close popup__close_edit link" type="button"></button>
           <h2 class="popup__title">Редактировать профиль</h2>
           <form class = "popup__form" name = "profileInputForm">
             <input class = "popup__input" type = "text" name="nameinput" id="name_input">
             <input class = "popup__input" type = "text" name="professioninput" id="profession_input">
-            <!--Надеюсь, я правильно создал теорию относительно id. Не очень понятно как называть их в случае с модфикатором-->
+            <button class = "popup__save-button link" type = "submit">Сохранить</button>
+          </form>
+      </div>
+    </div>
+    <div class="popup popup-add">
+      <div class="popup__container">
+          <button class="popup__close popup__close_add link" type="button"></button>
+          <h2 class="popup__title">Добавить Фото</h2>
+          <form class = "popup__form" name = "profileInputForm">
+            <input class = "popup__input" type = "text" name="nameinput" id="name_input" placeholder="Название">
+            <input class = "popup__input" type = "text" name="professioninput" id="profession_input" placeholder="Ссылка на картинку">
             <button class = "popup__save-button link" type = "submit">Сохранить</button>
           </form>
       </div>
