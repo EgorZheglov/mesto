@@ -1,3 +1,14 @@
+<<<<<<< HEAD
+=======
+const openPopupButton = document.querySelector('.profile__edit-button');
+const popup = document.querySelector('.popup');
+const closePopupButton = document.querySelector('.popup__close');
+// Находим форму в DOM
+let formElement = document.querySelector('.popup__form');// Воспользуйтесь методом querySelector()
+// Находим поля формы в DOM
+let nameInput = document.querySelector('.popup__name-input');// Воспользуйтесь инструментом .querySelector()
+let jobInput = document.querySelector('.popup__profession-input');// Воспользуйтесь инструментом .querySelector()
+>>>>>>> parent of 2aa352c (Dynamic content add)
 
 let openPopupButtonEdit = document.querySelector('.profile__edit-button');
 let openPopupButtonAdd = document.querySelector('.profile__add-button');
@@ -11,6 +22,20 @@ let jobInput = document.querySelector('#profession_input');
 let profileName = document.querySelector('.profile__name');
 let profileProfession = document.querySelector('.profile__profession');
 
+<<<<<<< HEAD
+=======
+// Обработчик «отправки» формы, хотя пока
+// она никуда отправляться не будет
+
+
+
+// Прикрепляем обработчик к форме:
+// он будет следить за событием “submit” - «отправка»
+
+
+nameInput.textContent = profileName.value;
+jobInput.textContent = profileProfession.value;
+>>>>>>> parent of 2aa352c (Dynamic content add)
 
 function openPopupEdit(evt){
     nameInput.value = profileName.textContent;
@@ -25,18 +50,6 @@ function closePopupEdit(evt){
 
 function openPopupAdd(evt){
     popupAdd.classList.add('popup_is-opened');
-}
-
-
-for (let i = 0; i < initialCards.length; i+=1)
-{
-    let currentItem = initialCards[i];
-    
-    let newCard = cardTemplate.content.cloneNode(true);
-   
-    newCard.querySelector('.elements__title').textContent = currentItem.name;
- 
-    elementsContainer.append(newCard);
 }
 
 function togglePopup(event){
