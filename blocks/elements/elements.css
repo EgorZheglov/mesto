@@ -5,17 +5,7 @@
     row-gap:20px;
     column-gap:17px;
     grid-template-columns:repeat(3, 1fr);
-<<<<<<< HEAD
-    grid-template-rows:repeat(2, min-content); 
-<<<<<<< HEAD
-<<<<<<< HEAD
     border: 1px solid red;
-=======
->>>>>>> main
-=======
->>>>>>> parent of 2aa352c (Dynamic content add)
-=======
->>>>>>> parent of 2aa352c (Dynamic content add)
 }
 
 @media (max-width: 920px) and (min-width: 600px) {
