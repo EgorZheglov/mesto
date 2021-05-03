@@ -1,3 +1,4 @@
+
 let openPopupButtonEdit = document.querySelector('.profile__edit-button');
 let openPopupButtonAdd = document.querySelector('.profile__add-button');
 let popupEdit = document.querySelector('.popup-edit');
@@ -10,6 +11,15 @@ let jobInput = document.querySelector('#profession_input');
 let profileName = document.querySelector('.profile__name');
 let profileProfession = document.querySelector('.profile__profession');
 
+// Обработчик «отправки» формы, хотя пока
+// она никуда отправляться не будет
+
+
+
+// Прикрепляем обработчик к форме:
+// он будет следить за событием “submit” - «отправка»
+
+
 
 function openPopupEdit(evt){
     nameInput.value = profileName.textContent;
@@ -21,6 +31,7 @@ function closePopupEdit(evt){
     popupEdit.classList.remove('popup_is-opened');
 }
 
+
 function openPopupAdd(evt){
     popupAdd.classList.add('popup_is-opened');
 }
@@ -30,9 +41,10 @@ function closePopupAdd(evt){
 }
 
 function submitFormHandler (evt) {
+    evt.preventDefault();
     profileName.textContent = nameInput.value;
     profileProfession.textContent = jobInput.value;
-    closePopup();
+    closePopupEdit();
 }
 
 openPopupButtonEdit.addEventListener("click", openPopupEdit);
