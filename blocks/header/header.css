@@ -1,14 +1,19 @@
 .header{
     width:100%;
     max-width:880px;
-    margin-top:28px;
+    margin-top:45px;
     display:flex;
     flex-direction:row;
     color:white;
     justify-content: space-between;
-    border-bottom:1px solid rgba(84, 84, 84, 1);
+    border-bottom:1px solid rgba(84, 84, 84, .7);
 }
 
+@media (max-width: 768px){
+  .header{
+    margin-top:28px;
+  }
+}
 
 @media (max-width: 768px) and (min-width: 426px) {
     .header{
@@ -18,11 +23,7 @@
     }
 }
 
-@media (max-width: 1024px) and (min-width: 769px) {
-  .header{
-      width:calc(100% - 96px);
-  } 
-}
+
 
 
 

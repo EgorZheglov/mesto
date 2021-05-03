@@ -1,11 +1,14 @@
 .profile__img{
-    max-width:168.75px;
-    border-radius: 140px;
+    max-width:120px;
+    border-radius: 300px;
     margin-right:30px;
+    margin-top: 0;
+    align-self: flex-start;
 }
 
 @media (max-width: 760px) {
     .profile__img{
       margin-right:0px;
+      align-self: center;
     }
 }
