@@ -13,9 +13,12 @@ let photoLinkInput = document.querySelector('#photo-link_input');
 let profileName = document.querySelector('.profile__name');
 let profileProfession = document.querySelector('.profile__profession');
 
+
 let cardTemplate = document.querySelector('#card-template');
 
 let cardContainer = document.querySelector('.elements');
+
+let popupPhoto = document.querySelector('.popup-photo');
 
 //let deleteButton = cardTemplate.content.querySelector('.elements__delete-button');
 
@@ -52,6 +55,26 @@ const initialCards = [
 
     let newCard = cardTemplate.content.querySelector('.elements__item').cloneNode(true);
     let deleteButton = newCard.querySelector('.elements__delete-button');
+    let photoLikeButton = newCard.querySelector('.elements__like-button');
+    let cardPopup = newCard.querySelector('.elements__popup-button');
+
+    cardPopup.addEventListener("click", function(event){
+
+
+      popupPhoto.querySelector('.popup__photo').src=link;
+      popupPhoto.querySelector('.popup__photo-title').textContent=name;
+      popupPhoto.classList.remove('popup-photo');/*В данном случае, почему-то недостаточно просто добавить модификатор _is-opened*/
+      popupPhoto.classList.add('popup_is-opened');
+
+      popupPhoto.querySelector('.popup__close_photo').addEventListener("click", function(event){
+        popupPhoto.classList.add('popup-photo');
+        popupPhoto.classList.remove('popup_is-opened');
+      })
+  });
+
+    photoLikeButton.addEventListener("click", function(event){
+      photoLikeButton.classList.toggle('elements__like-button_active');
+  });
 
     deleteButton.addEventListener("click", function(event){
         event.target.closest('.elements__item').remove();

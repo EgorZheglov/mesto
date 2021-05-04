@@ -1,3 +1,6 @@
-.popup-photo.css{
+.popup-photo{
     display: none;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 3s, opacity 0.5s linear
 }

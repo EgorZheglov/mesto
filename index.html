@@ -53,23 +53,28 @@
           </form>
       </div>
     </div>
+    <div class="popup popup-photo popup_is-opened">
+      <div class="popup__container popup__container_photo">
+        <button class="popup__close popup__close_photo link" type="button"></button>
+        <img class="popup__photo" src="./images/kirill-pershin-1088404-unsplash.jpg" alt="фото Карачаевск">
+        <h3 class="popup__photo-title">text content</h3>
+      </div>
+    </div>
     <template id="card-template">
       <div class="elements__item">
-        <img class="elements__photo" src="" alt="фото Карачаевск">
+        <button class="elements__popup-button" type="button">
+          <img class="elements__photo" src="#" alt="фото Карачаевск">
+        </button>
           <div class="elements__description-content">
           <h2 class="elements__title"></h2>
-          <button class="elements__like-button link" type="button">
-            <img class="elements__like-img" src="images/Like.svg" alt="Поставить лайк">
+          <button class="elements__like-button elements__link" type="button">
+           <!-- <img class="elements__like-img" src="images/Like.svg" alt="Поставить лайк">-->
           </button>
           </div>
           <button class="elements__delete-button link" type="button">
             <img class="elements__delete-img" src="images/delete1.svg" alt="удалить">
             <img class="elements__trash-img" src="images/delete2.svg" alt="удалить">
           </button>
-      </div>
-      <div class="popup popup-photo">
-        <div class="popup__photo">
-        <button class="popup__close popup__close_photo link" type="button"></button>
       </div>
     </template>
   </div>
