@@ -5,7 +5,6 @@
     row-gap:20px;
     column-gap:17px;
     grid-template-columns:repeat(3, 1fr);
-    border: 1px solid red;
 }
 
 @media (max-width: 920px) and (min-width: 600px) {
