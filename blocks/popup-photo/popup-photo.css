@@ -1,6 +1,5 @@
 .popup-photo{
-    display: none;
     visibility: hidden;
+    transition: 0.5s;
     opacity: 0;
-    transition: visibility 3s, opacity 0.5s linear
-}
+} 
