@@ -1,4 +1,5 @@
 .popup__close_photo{
+    position: absolute;
     top:-50px;
     right:-45px;
 }
