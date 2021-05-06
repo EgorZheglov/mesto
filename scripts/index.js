@@ -1,66 +1,29 @@
 
-let openPopupButtonEdit = document.querySelector('.profile__edit-button');
-let openPopupButtonAdd = document.querySelector('.profile__add-button');
-let popupEdit = document.querySelector('.popup_type_edit');
-let popupAdd = document.querySelector('.popup_type_add');
-let closePopupAddButton = document.querySelector('.popup__close_add');
-let closePopupEditButton = document.querySelector('.popup__close_edit');
-let formEditElement = document.querySelector('.popup__form_edit');
-let formAddElement = document.querySelector('.popup__form_add');
-let nameInput = document.querySelector('#name_input');
-let jobInput = document.querySelector('#profession_input');
-let photoNameInput = document.querySelector('#photo-name_input');
-let photoLinkInput = document.querySelector('#photo-link_input');
-let profileName = document.querySelector('.profile__name');
-let profileProfession = document.querySelector('.profile__profession');
-
-// Обработчик «отправки» формы, хотя пока
-// она никуда отправляться не будет
+const openPopupButtonEdit = document.querySelector('.profile__edit-button');
+const openPopupButtonAdd = document.querySelector('.profile__add-button');
+const popupEdit = document.querySelector('.popup_type_edit');
+const popupAdd = document.querySelector('.popup_type_add');
+const closePopupAddButton = document.querySelector('.popup__close_add');
+const closePopupEditButton = document.querySelector('.popup__close_edit');
+const formEditElement = document.querySelector('.popup__form_edit');
+const formAddElement = document.querySelector('.popup__form_add');
+const nameInput = document.querySelector('#name_input');
+const jobInput = document.querySelector('#profession_input');
+const photoNameInput = document.querySelector('#photo-name_input');
+const photoLinkInput = document.querySelector('#photo-link_input');
+const profileName = document.querySelector('.profile__name');
+const profileProfession = document.querySelector('.profile__profession');
 
 
+const cardTemplate = document.querySelector('#card-template');
 
-// Прикрепляем обработчик к форме:
-// он будет следить за событием “submit” - «отправка»
+const cardContainer = document.querySelector('.elements');
 
-
-
-let cardTemplate = document.querySelector('#card-template');
-
-let cardContainer = document.querySelector('.elements');
-
-let popupPhoto = document.querySelector('.popup_type_photo');
-
-//let deleteButton = cardTemplate.content.querySelector('.elements__delete-button');
+const popupPhoto = document.querySelector('.popup_type_photo');
 
 
-const initialCards = [
-    {
-      name: 'Архыз',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-      name: 'Челябинская область',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-      name: 'Иваново',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-      name: 'Камчатка',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-      name: 'Холмогорский район',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-      name: 'Байкал',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-  ];
-
-
+//Странно, что при изменении атрибута переменной, которая объявлена константой вроде 
+//textContent или value - не возникает ошибки и все работает. Получается, атрибуты const не являются постоянными? 
   function createNewCard(name,link){
 
     let newCard = cardTemplate.content.querySelector('.elements__item').cloneNode(true);
