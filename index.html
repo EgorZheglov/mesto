@@ -31,29 +31,29 @@
     <footer class="footer">
       <p class="footer__text">&copy;2021 Егор Жеглов.</p>
     </footer>
-    <div class="popup popup-edit">
+    <div class="popup popup_type_edit">
       <div class="popup__container">
           <button class="popup__close popup__close_edit link" type="button"></button>
           <h2 class="popup__title">Редактировать профиль</h2>
-          <form class = "popup__form popup__form_edit" name = "profileInputForm">
-            <input class = "popup__input" type = "text" name="nameinput" id="name_input">
+          <form class = "popup__form popup__form_edit" name = "profileInputNameForm"><!--Такой вариант названия формы подходит? просто не нашел как конкретно называть формы в атрибуте name-->
+            <input class = "popup__input" type = "text" name="nameinput" id="name_input" required>
             <input class = "popup__input" type = "text" name="professioninput" id="profession_input">
             <button class = "popup__save-button link" type = "submit">Сохранить</button>
           </form>
       </div>
     </div>
-    <div class="popup popup-add">
+    <div class="popup popup_type_add">
       <div class="popup__container">
           <button class="popup__close popup__close_add link" type="button"></button>
           <h2 class="popup__title">Добавить Фото</h2>
-          <form class = "popup__form popup__form_add" name = "profileInputForm">
+          <form class = "popup__form popup__form_add" name = "profileInputPhotoForm">
             <input class = "popup__input" type = "text" name="photo-nameinput" id="photo-name_input" placeholder="Название">
-            <input class = "popup__input" type = "text" name="photo-linkinput" id="photo-link_input" placeholder="Ссылка на картинку">
+            <input class = "popup__input" type = "url" name="photo-linkinput" id="photo-link_input" placeholder="Ссылка на картинку" required>
             <button class = "popup__save-button link" type = "submit">Сохранить</button>
           </form>
       </div>
     </div>
-    <div class="popup popup-photo popup_is-opened">
+    <div class="popup popup_type_photo">
       <div class="popup__container popup__container_photo">
         <button class="popup__close popup__close_photo link" type="button"></button>
         <img class="popup__photo" src="./images/kirill-pershin-1088404-unsplash.jpg" alt="фото Карачаевск">
@@ -63,7 +63,7 @@
     <template id="card-template">
       <div class="elements__item">
         <button class="elements__popup-button" type="button">
-          <img class="elements__photo" src="#" alt="фото Карачаевск">
+          <img class="elements__photo link" src="#" alt="фото Карачаевск">
         </button>
           <div class="elements__description-content">
           <h2 class="elements__title"></h2>

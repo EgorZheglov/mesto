@@ -3,3 +3,8 @@
     height:282px;
     background-color: black;
 }
+
+.elements__photo:hover{
+    transition:opacity ease-in-out;
+    opacity:80%;
+}

@@ -9,9 +9,9 @@
 
 @media (max-width: 920px) and (min-width: 600px) {
     .elements{
-    width:calc(100% - 38px);
-    margin-left:19px;
-    grid-template-columns:repeat(2, 1fr);
+        width:calc(100% - 38px);
+        margin-left:19px;
+        grid-template-columns:repeat(2, 1fr);
     }
 }
 

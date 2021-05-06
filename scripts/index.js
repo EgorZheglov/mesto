@@ -1,8 +1,8 @@
 
 let openPopupButtonEdit = document.querySelector('.profile__edit-button');
 let openPopupButtonAdd = document.querySelector('.profile__add-button');
-let popupEdit = document.querySelector('.popup-edit');
-let popupAdd = document.querySelector('.popup-add');
+let popupEdit = document.querySelector('.popup_type_edit');
+let popupAdd = document.querySelector('.popup_type_add');
 let closePopupAddButton = document.querySelector('.popup__close_add');
 let closePopupEditButton = document.querySelector('.popup__close_edit');
 let formEditElement = document.querySelector('.popup__form_edit');
@@ -28,7 +28,7 @@ let cardTemplate = document.querySelector('#card-template');
 
 let cardContainer = document.querySelector('.elements');
 
-let popupPhoto = document.querySelector('.popup-photo');
+let popupPhoto = document.querySelector('.popup_type_photo');
 
 //let deleteButton = cardTemplate.content.querySelector('.elements__delete-button');
 
@@ -69,15 +69,13 @@ const initialCards = [
     let cardPopup = newCard.querySelector('.elements__popup-button');
 
     cardPopup.addEventListener("click", function(event){
-
-
       popupPhoto.querySelector('.popup__photo').src=link;
       popupPhoto.querySelector('.popup__photo-title').textContent=name;
-      popupPhoto.classList.remove('popup-photo');/*В данном случае, почему-то недостаточно просто добавить модификатор _is-opened*/
+      popupPhoto.classList.remove('popup_type_photo');/*В данном случае, почему-то недостаточно просто добавить модификатор _is-opened*/
       popupPhoto.classList.add('popup_is-opened');
 
       popupPhoto.querySelector('.popup__close_photo').addEventListener("click", function(event){
-        popupPhoto.classList.add('popup-photo');
+        popupPhoto.classList.add('popup_type_photo');
         popupPhoto.classList.remove('popup_is-opened');
       })
   });
