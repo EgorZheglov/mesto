@@ -21,8 +21,6 @@ const cardContainer = document.querySelector(".elements");
 
 const popupPhoto = document.querySelector(".popup_type_photo");
 
-//Странно, что при изменении атрибута переменной, которая объявлена константой вроде
-//textContent или value - не возникает ошибки и все работает. Получается, атрибуты const не являются постоянными?
 
 function createNewCard(name, link) {
   const newCard = cardTemplate.content
@@ -58,6 +56,18 @@ for (let i = 0; i < initialCards.length; i += 1) {
 
 function openPopup(popup) {
   popup.classList.add("popup_is-opened");
+  popup.addEventListener("keydown", function (evt) {
+    if (evt.key==='Escape'){
+      closePopup(popup); 
+    }
+  })
+
+  popup.addEventListener("mousedown", function (evt) {
+    if(evt.target.classList.contains('popup'))
+    {
+      closePopup(popup); 
+    }
+  })
 }
 
 function closePopup(popup) {
@@ -73,13 +83,29 @@ function submitFormHandlerEdit(evt) {
 
 function submitFormHandlerAdd(evt) {
   evt.preventDefault();
-  //initialCards.unshift({name:photoNameInput.value, link:photoLinkInput});
+  formElement = evt.target;
+  const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
+  const buttonElement = formElement.querySelector(config.submitButtonSelector);
   cardContainer.prepend(
     createNewCard(photoNameInput.value, photoLinkInput.value)
   );
   formAddElement.reset();
+  
   closePopup(popupAdd);
+  toggleButtonState(buttonElement, inputList, config); //Валидация после отдельного инпута
 }
+
+const config = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__save-button',
+  inactiveButtonClass: 'popup__save-button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__input-error_active'
+}
+//Имеет ли смысл вынести объект в отдельный файл?
+
+enableValidation(config);
 
 openPopupButtonEdit.addEventListener("click", function (event) {
   nameInput.value = profileName.textContent;
@@ -95,6 +121,7 @@ closePopupAddButton.addEventListener("click", function (event) {
   closePopup(popupAdd);
 });
 
+
 closePopupEditButton.addEventListener("click", function (event) {
   closePopup(popupEdit);
 });
@@ -106,4 +133,6 @@ closePopupPhotoButton.addEventListener("click", function (event) {
 
 formEditElement.addEventListener("submit", submitFormHandlerEdit);
 
+
 formAddElement.addEventListener("submit", submitFormHandlerAdd);
+
