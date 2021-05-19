@@ -56,12 +56,11 @@ for (let i = 0; i < initialCards.length; i += 1) {
 
 function openPopup(popup) {
   popup.classList.add("popup_is-opened");
-  popup.addEventListener("keydown", function (evt) {
-    if (evt.key==='Escape'){
-      closePopup(popup); 
+  document.addEventListener("keydown", function (evt) {
+    if (evt.key==="Escape"){
+      closePopup(popup); //Прошу прощения, все исправил 
     }
   })
-
   popup.addEventListener("mousedown", function (evt) {
     if(evt.target.classList.contains('popup'))
     {
