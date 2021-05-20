@@ -1,20 +1,22 @@
-const showInputError = (formElement, inputElement, config) => {
+const showInputError = (formElement, inputElement, errorMessage, config) => {
     inputElement.classList.add(config.inputErrorClass);
     const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
     errorElement.classList.add(config.errorClass);
+    errorElement.textContent =  errorMessage;
 }
 
 const hideInputError = (formElement, inputElement, config) => {
     const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
     errorElement.classList.remove(config.errorClass);
     inputElement.classList.remove(config.inputErrorClass);
+    errorElement.textContent = ' '; 
 }
 
 const checkInputValidity = (formElement, inputElement) => {
    if(inputElement.validity.valid){
       hideInputError(formElement, inputElement, config);
     } else {
-      showInputError(formElement, inputElement, config);
+      showInputError(formElement, inputElement, inputElement.validationMessage, config);
     }
 }
 
@@ -54,5 +56,4 @@ const enableValidation = (config) => {
     )
 }
 
-//Заранее спасибо Вам за ревью. Прошу прощения, если что-то сделано неточно 
-//или недостаточно хорошо, эта работа дается особенно трудно(
+//Большое спасибо за ревью!

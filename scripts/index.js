@@ -54,24 +54,45 @@ for (let i = 0; i < initialCards.length; i += 1) {
   cardContainer.append(createNewCard(currentItem.name, currentItem.link));
 }
 
-function openPopup(popup) {
-  popup.classList.add("popup_is-opened");
-  document.addEventListener("keydown", function (evt) {
-    if (evt.key==="Escape"){
-      closePopup(popup); //Прошу прощения, все исправил 
-    }
-  })
-  popup.addEventListener("mousedown", function (evt) {
-    if(evt.target.classList.contains('popup'))
-    {
-      closePopup(popup); 
-    }
-  })
+
+function closeByEsc(evt) {
+  const popup = document.querySelector(".popup_is-opened");
+  if (evt.key==="Escape"){
+    closePopup(popup); //Прошу прощения, все исправил. 
+  }
 }
 
+function closeByOverlay(evt) {
+  const popup = document.querySelector(".popup_is-opened");
+  if(evt.target.classList.contains('popup'))
+  {
+    closePopup(popup); 
+  }
+}
+
+function openPopup(popup) {
+  const formElement = popup.querySelector(".popup__form");
+  const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
+  inputList.forEach((inputElement) =>{
+    hideInputError(formElement, inputElement, config);
+        }
+    );
+  popup.classList.add("popup_is-opened");
+  document.addEventListener("keydown", closeByEsc);
+  popup.addEventListener("mousedown", closeByOverlay);
+}
+
+
 function closePopup(popup) {
+  document.removeEventListener("keydown", closeByEsc);
+  //В devtools не очень понятно, удалился обработчик или нет. 
+  //Если не переключать вкладку EventListeners после закрытия popup'a, то он остается.
+  //А если переключить и вернуться то вроде его нет. Это единственный способ проверить наличие обработчика?
+  popup.removeEventListener("mousedown", closeByOverlay);
   popup.classList.remove("popup_is-opened");
 }
+
+
 
 function submitFormHandlerEdit(evt) {
   evt.preventDefault();
@@ -88,7 +109,7 @@ function submitFormHandlerAdd(evt) {
   cardContainer.prepend(
     createNewCard(photoNameInput.value, photoLinkInput.value)
   );
-  formAddElement.reset();
+  
   
   closePopup(popupAdd);
   toggleButtonState(buttonElement, inputList, config); //Валидация после отдельного инпута
@@ -113,6 +134,7 @@ openPopupButtonEdit.addEventListener("click", function (event) {
 });
 
 openPopupButtonAdd.addEventListener("click", function (event) {
+  formAddElement.reset();
   openPopup(popupAdd);
 });
 

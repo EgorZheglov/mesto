@@ -35,11 +35,11 @@
       <div class="popup__container">
           <button class="popup__close popup__close_edit link" type="button"></button>
           <h2 class="popup__title">Редактировать профиль</h2>
-          <form class = "popup__form popup__form_edit" name = "profileInputNameForm"><!--Такой вариант названия формы подходит? просто не нашел как конкретно называть формы в атрибуте name-->
-            <input class = "popup__input" type = "text" name="nameinput" id="name_input" minlength="2" required>
-            <span class = "popup__input-error" id="name_input-error">Заполните это поле</span>
-            <input class = "popup__input" type = "text" name="professioninput" id="profession_input" required>
-            <span class = "popup__input-error" id="profession_input-error">Заполните это поле</span>
+          <form class = "popup__form popup__form_edit" name = "profileInputNameForm" novalidate>
+            <input class = "popup__input" type = "text" name="nameinput" id="name_input" minlength="2" maxlength="40" required>
+            <span class = "popup__input-error" id="name_input-error"></span>
+            <input class = "popup__input" type = "text" name="professioninput" id="profession_input" minlength="2" maxlength="200" required>
+            <span class = "popup__input-error" id="profession_input-error"></span>
             <button class = "popup__save-button link" type = "submit">Сохранить</button>
           </form>
       </div>
@@ -48,11 +48,11 @@
       <div class="popup__container">
           <button class="popup__close popup__close_add link" type="button"></button>
           <h2 class="popup__title">Добавить Фото</h2>
-          <form class = "popup__form popup__form_add" name = "profileInputPhotoForm">
-            <input class = "popup__input" type = "text" name="photo-nameinput" id="photo-name_input" minlength="3" placeholder="Название">
-            <span class = "popup__input-error" id="photo-name_input-error">Заполните это поле</span>
+          <form class = "popup__form popup__form_add" name = "profileInputPhotoForm" novalidate>
+            <input class = "popup__input" type = "text" name="photo-nameinput" id="photo-name_input" placeholder="Название" required>
+            <span class = "popup__input-error" id="photo-name_input-error"></span>
             <input class = "popup__input" type = "url" name="photo-linkinput" id="photo-link_input" placeholder="Ссылка на картинку" required>
-            <span class = "popup__input-error" id="photo-link_input-error">Введите ссылку</span>
+            <span class = "popup__input-error" id="photo-link_input-error"></span>
             <button class = "popup__save-button link" type = "submit">Сохранить</button>
           </form>
       </div>
