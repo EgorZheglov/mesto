@@ -12,6 +12,7 @@ const hideInputError = (formElement, inputElement, config) => {
     errorElement.textContent = ' '; 
 }
 
+
 const checkInputValidity = (formElement, inputElement) => {
    if(inputElement.validity.valid){
       hideInputError(formElement, inputElement, config);
@@ -20,9 +21,11 @@ const checkInputValidity = (formElement, inputElement) => {
     }
 }
 
+
 const hasInvalidInput = (inputList) =>{
     return inputList.some(inputElement => !inputElement.validity.valid);
 }
+
 
 const toggleButtonState = (buttonElement, inputList, config) =>{
  if(hasInvalidInput(inputList)){

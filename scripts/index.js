@@ -58,7 +58,7 @@ for (let i = 0; i < initialCards.length; i += 1) {
 function closeByEsc(evt) {
   const popup = document.querySelector(".popup_is-opened");
   if (evt.key==="Escape"){
-    closePopup(popup); //Прошу прощения, все исправил. 
+    closePopup(popup);
   }
 }
 
@@ -70,13 +70,16 @@ function closeByOverlay(evt) {
   }
 }
 
-function openPopup(popup) {
+function removeInputError(popup){
   const formElement = popup.querySelector(".popup__form");
   const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
   inputList.forEach((inputElement) =>{
     hideInputError(formElement, inputElement, config);
-        }
-    );
+    }
+  );
+}
+
+function openPopup(popup) {
   popup.classList.add("popup_is-opened");
   document.addEventListener("keydown", closeByEsc);
   popup.addEventListener("mousedown", closeByOverlay);
@@ -85,9 +88,6 @@ function openPopup(popup) {
 
 function closePopup(popup) {
   document.removeEventListener("keydown", closeByEsc);
-  //В devtools не очень понятно, удалился обработчик или нет. 
-  //Если не переключать вкладку EventListeners после закрытия popup'a, то он остается.
-  //А если переключить и вернуться то вроде его нет. Это единственный способ проверить наличие обработчика?
   popup.removeEventListener("mousedown", closeByOverlay);
   popup.classList.remove("popup_is-opened");
 }
@@ -110,7 +110,7 @@ function submitFormHandlerAdd(evt) {
     createNewCard(photoNameInput.value, photoLinkInput.value)
   );
   
-  
+  formAddElement.reset();
   closePopup(popupAdd);
   toggleButtonState(buttonElement, inputList, config); //Валидация после отдельного инпута
 }
@@ -130,11 +130,13 @@ enableValidation(config);
 openPopupButtonEdit.addEventListener("click", function (event) {
   nameInput.value = profileName.textContent;
   jobInput.value = profileProfession.textContent;
+  removeInputError(popupEdit);
   openPopup(popupEdit);
 });
 
 openPopupButtonAdd.addEventListener("click", function (event) {
   formAddElement.reset();
+  removeInputError(popupAdd);
   openPopup(popupAdd);
 });
 
