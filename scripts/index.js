@@ -1,3 +1,14 @@
+import FormValidator from './FormValidator.js';
+
+const config = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__save-button',
+  inactiveButtonClass: 'popup__save-button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__input-error_active'
+}
+
 const popup = document.querySelector(".popup");
 const openPopupButtonEdit = document.querySelector(".profile__edit-button");
 const openPopupButtonAdd = document.querySelector(".profile__add-button");
@@ -6,8 +17,10 @@ const popupAdd = document.querySelector(".popup_type_add");
 const closePopupAddButton = document.querySelector(".popup__close_add");
 const closePopupEditButton = document.querySelector(".popup__close_edit");
 const closePopupPhotoButton = document.querySelector(".popup__close_photo");
-const formEditElement = document.querySelector(".popup__form_edit");
-const formAddElement = document.querySelector(".popup__form_add");
+//const formEditElement = document.querySelector(".popup__form_edit");
+const formEditElement = new FormValidator(config, ".popup__form_edit");
+//const formAddElement = document.querySelector(".popup__form_add");
+const formAddElement = new FormValidator(config, ".popup__form_add");
 const nameInput = document.querySelector("#name_input");
 const jobInput = document.querySelector("#profession_input");
 const photoNameInput = document.querySelector("#photo-name_input");
@@ -20,7 +33,6 @@ const cardTemplate = document.querySelector("#card-template");
 const cardContainer = document.querySelector(".elements");
 
 const popupPhoto = document.querySelector(".popup_type_photo");
-
 
 function createNewCard(name, link) {
   const newCard = cardTemplate.content
@@ -74,7 +86,7 @@ function removeInputError(popup){
   const formElement = popup.querySelector(".popup__form");
   const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
   inputList.forEach((inputElement) =>{
-    hideInputError(formElement, inputElement, config);
+    //hideInputError(formElement, inputElement, config);
     }
   );
 }
@@ -110,32 +122,22 @@ function submitFormHandlerAdd(evt) {
     createNewCard(photoNameInput.value, photoLinkInput.value)
   );
   
-  formAddElement.reset();
+  //formAddElement.reset();
   closePopup(popupAdd);
   toggleButtonState(buttonElement, inputList, config); //Валидация после отдельного инпута
 }
 
-const config = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__save-button',
-  inactiveButtonClass: 'popup__save-button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input-error_active'
-}
-//Имеет ли смысл вынести объект в отдельный файл?
-
-enableValidation(config);
 
 openPopupButtonEdit.addEventListener("click", function (event) {
   nameInput.value = profileName.textContent;
   jobInput.value = profileProfession.textContent;
   removeInputError(popupEdit);
   openPopup(popupEdit);
+  formEditElement.enableValidation();
 });
 
 openPopupButtonAdd.addEventListener("click", function (event) {
-  formAddElement.reset();
+  formAddElement.enableValidation();
   removeInputError(popupAdd);
   openPopup(popupAdd);
 });
@@ -154,8 +156,10 @@ closePopupPhotoButton.addEventListener("click", function (event) {
     closePopup(popupPhoto);
   });
 
-formEditElement.addEventListener("submit", submitFormHandlerEdit);
 
 
-formAddElement.addEventListener("submit", submitFormHandlerAdd);
+//formEditElement.addEventListener("submit", submitFormHandlerEdit);
+
+
+//formAddElement.addEventListener("submit", submitFormHandlerAdd);
 
