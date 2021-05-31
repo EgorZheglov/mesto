@@ -17,10 +17,10 @@ const popupAdd = document.querySelector(".popup_type_add");
 const closePopupAddButton = document.querySelector(".popup__close_add");
 const closePopupEditButton = document.querySelector(".popup__close_edit");
 const closePopupPhotoButton = document.querySelector(".popup__close_photo");
-//const formEditElement = document.querySelector(".popup__form_edit");
-const formEditElement = new FormValidator(config, ".popup__form_edit");
-//const formAddElement = document.querySelector(".popup__form_add");
-const formAddElement = new FormValidator(config, ".popup__form_add");
+const formEditElement = document.querySelector(".popup__form_edit");
+const formEditValidator = new FormValidator(config, formEditElement);
+const formAddElement = document.querySelector(".popup__form_add");
+const formAddValidator = new FormValidator(config, formAddElement);
 const nameInput = document.querySelector("#name_input");
 const jobInput = document.querySelector("#profession_input");
 const photoNameInput = document.querySelector("#photo-name_input");
@@ -82,11 +82,10 @@ function closeByOverlay(evt) {
   }
 }
 
-function removeInputError(popup){
-  const formElement = popup.querySelector(".popup__form");
-  const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
+function removeInputError(popup, validator){
+  const inputList = Array.from(popup.querySelectorAll(config.inputSelector));
   inputList.forEach((inputElement) =>{
-    //hideInputError(formElement, inputElement, config);
+     validator.hideInputError(inputElement);
     }
   );
 }
@@ -115,30 +114,25 @@ function submitFormHandlerEdit(evt) {
 
 function submitFormHandlerAdd(evt) {
   evt.preventDefault();
-  formElement = evt.target;
-  const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
-  const buttonElement = formElement.querySelector(config.submitButtonSelector);
   cardContainer.prepend(
     createNewCard(photoNameInput.value, photoLinkInput.value)
   );
-  
-  //formAddElement.reset();
   closePopup(popupAdd);
-  toggleButtonState(buttonElement, inputList, config); //Валидация после отдельного инпута
 }
 
 
 openPopupButtonEdit.addEventListener("click", function (event) {
   nameInput.value = profileName.textContent;
   jobInput.value = profileProfession.textContent;
-  removeInputError(popupEdit);
+  removeInputError(popupEdit,formEditValidator);
   openPopup(popupEdit);
-  formEditElement.enableValidation();
+  formEditValidator.enableValidation();
 });
 
 openPopupButtonAdd.addEventListener("click", function (event) {
-  formAddElement.enableValidation();
-  removeInputError(popupAdd);
+  formAddElement.reset();
+  formAddValidator.enableValidation();
+  removeInputError(popupAdd,formAddValidator);
   openPopup(popupAdd);
 });
 
@@ -148,6 +142,7 @@ closePopupAddButton.addEventListener("click", function (event) {
 
 
 closePopupEditButton.addEventListener("click", function (event) {
+  formEditValidator.enableValidation();
   closePopup(popupEdit);
 });
 
@@ -158,8 +153,8 @@ closePopupPhotoButton.addEventListener("click", function (event) {
 
 
 
-//formEditElement.addEventListener("submit", submitFormHandlerEdit);
+formEditElement.addEventListener("submit", submitFormHandlerEdit);
 
 
-//formAddElement.addEventListener("submit", submitFormHandlerAdd);
+formAddElement.addEventListener("submit", submitFormHandlerAdd);
 
