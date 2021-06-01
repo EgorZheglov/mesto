@@ -15,6 +15,7 @@ const openPopupButtonEdit = document.querySelector(".profile__edit-button");
 const openPopupButtonAdd = document.querySelector(".profile__add-button");
 const popupEdit = document.querySelector(".popup_type_edit");
 const popupAdd = document.querySelector(".popup_type_add");
+const popupPhoto = document.querySelector(".popup_type_photo");
 const closePopupAddButton = document.querySelector(".popup__close_add");
 const closePopupEditButton = document.querySelector(".popup__close_edit");
 const closePopupPhotoButton = document.querySelector(".popup__close_photo");
@@ -28,6 +29,7 @@ const photoNameInput = document.querySelector("#photo-name_input");
 const photoLinkInput = document.querySelector("#photo-link_input");
 const profileName = document.querySelector(".profile__name");
 const profileProfession = document.querySelector(".profile__profession");
+const cardContainer = document.querySelector(".elements");
 
 
 function addCard(cardName, cardLink){
