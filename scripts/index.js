@@ -11,7 +11,7 @@ const config = {
   errorClass: 'popup__input-error_active'
 }
 
-//const popup = document.querySelector(".popup");
+
 const openPopupButtonEdit = document.querySelector(".profile__edit-button");
 const openPopupButtonAdd = document.querySelector(".profile__add-button");
 const popupEdit = document.querySelector(".popup_type_edit");
@@ -112,3 +112,4 @@ formEditElement.addEventListener("submit", submitFormHandlerEdit);
 
 formAddElement.addEventListener("submit", submitFormHandlerAdd);
 
+//Заранее благодарю за ревью и прошу прощения за недочеты. Эта тема дается особенно тяжело.
