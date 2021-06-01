@@ -1,4 +1,4 @@
-const popupPhoto = document.querySelector(".popup_type_photo");
+const popupPhoto = document.querySelector('.popup_type_photo');
 
 function closeByEsc(evt) {
     const popup = document.querySelector(".popup_is-opened");

@@ -35,15 +35,7 @@ const cardContainer = document.querySelector(".elements");
 function addCard(cardName, cardLink){
   const card = new Card(cardName, cardLink, '#card-template');
   const cardElement = card.createCard();
-  const cardPopup = cardElement.querySelector(".elements__popup-button");
   cardContainer.prepend(cardElement);
-
-  cardPopup.addEventListener("click", function (event) {
-    openPopup(popupPhoto);
-    popupPhoto.querySelector(".popup__photo").src = cardLink;
-    popupPhoto.querySelector(".popup__photo").alt = cardName + "";
-    popupPhoto.querySelector(".popup__photo-title").textContent = cardName;
-  });
 }
 
 for (let i = 0; i < initialCards.length; i += 1) {
@@ -69,11 +61,9 @@ function submitFormHandlerEdit(evt) {
 
 function submitFormHandlerAdd(evt) {
   evt.preventDefault();
- 
   addCard(photoNameInput.value, photoLinkInput.value,);
   closePopup(popupAdd);
 }
-
 
 openPopupButtonEdit.addEventListener("click", function (event) {
   nameInput.value = profileName.textContent;
@@ -104,7 +94,6 @@ closePopupEditButton.addEventListener("click", function (event) {
 closePopupPhotoButton.addEventListener("click", function (event) {
     closePopup(popupPhoto);
   });
-
 
 
 formEditElement.addEventListener("submit", submitFormHandlerEdit);
