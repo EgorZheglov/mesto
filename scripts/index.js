@@ -1,5 +1,6 @@
 import FormValidator from './FormValidator.js';
 import Card from './card.js';
+import {openPopup, closeByEsc, closeByOverlay, popupPhoto, closePopup} from '../utils/utils.js';
 
 const config = {
   formSelector: '.popup__form',
@@ -15,7 +16,6 @@ const openPopupButtonEdit = document.querySelector(".profile__edit-button");
 const openPopupButtonAdd = document.querySelector(".profile__add-button");
 const popupEdit = document.querySelector(".popup_type_edit");
 const popupAdd = document.querySelector(".popup_type_add");
-const popupPhoto = document.querySelector(".popup_type_photo");
 const closePopupAddButton = document.querySelector(".popup__close_add");
 const closePopupEditButton = document.querySelector(".popup__close_edit");
 const closePopupPhotoButton = document.querySelector(".popup__close_photo");
@@ -52,21 +52,6 @@ for (let i = 0; i < initialCards.length; i += 1) {
 }
 
 
-function closeByEsc(evt) {
-  const popup = document.querySelector(".popup_is-opened");
-  if (evt.key==="Escape"){
-    closePopup(popup);
-  }
-}
-
-function closeByOverlay(evt) {
-  const popup = document.querySelector(".popup_is-opened");
-  if(evt.target.classList.contains('popup'))
-  {
-    closePopup(popup); 
-  }
-}
-
 function removeInputError(popup, validator){
   const inputList = Array.from(popup.querySelectorAll(config.inputSelector));
   inputList.forEach((inputElement) =>{
@@ -74,22 +59,6 @@ function removeInputError(popup, validator){
     }
   );
 }
-
-function openPopup(popup) {
-  popup.classList.add("popup_is-opened");
-  document.addEventListener("keydown", closeByEsc);
-  popup.addEventListener("mousedown", closeByOverlay);
-}
-
-//Следует ли импортировать openPopup в card.js?
-
-function closePopup(popup) {
-  document.removeEventListener("keydown", closeByEsc);
-  popup.removeEventListener("mousedown", closeByOverlay);
-  popup.classList.remove("popup_is-opened");
-}
-
-
 
 function submitFormHandlerEdit(evt) {
   evt.preventDefault();
