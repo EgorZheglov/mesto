@@ -1,14 +1,15 @@
-import {openPopup, closeByEsc, closeByOverlay, popupPhoto, closePopup} from '../utils/utils.js';
+import {openPopup, popupPhoto} from '../utils/utils.js';
 
 export default class Card{
 
-    constructor(name, link, templateId){
+    constructor(name, link, templateSelector){
         this.name = name;
         this.link = link;
-        this.cardTemplate = document.querySelector(templateId); //Возможно стоит передавать сразу cardTemplate.content?
+        this.templateSelector = templateSelector; //Возможно стоит передавать сразу cardTemplate.content?
     }
     
     _getTemplate(){
+        this.cardTemplate = document.querySelector(this.templateSelector);
         const cardElement = this.cardTemplate.content
         .querySelector(".elements__item")
         .cloneNode(true);
@@ -16,36 +17,44 @@ export default class Card{
       return cardElement;
       }
     
-    _setEventListeners(card){
-        const deleteButton = card.querySelector(".elements__delete-button");
-        const photoLikeButton = card.querySelector(".elements__like-button");
-        const openPopupPhotoButton = card.querySelector(".elements__popup-button");
 
-        openPopupPhotoButton.addEventListener("click", (event) => { //Долго не мог понять, почему с обычным объявлением функции попап ломается. (;
-            openPopup(popupPhoto);
-            popupPhoto.querySelector(".popup__photo").src = this.link;
-            popupPhoto.querySelector(".popup__photo").alt = this.name + "";
-            popupPhoto.querySelector(".popup__photo-title").textContent = this.name;
-        });
+    _deleteButtonClick = (event) => {
+        event.target.closest(".elements__item").remove();
+      }
+
+    _likeButtonClick = (event) => {
+      this.photoLikeButton.classList.toggle("elements__like-button_active");
+    }
+
+    _popupButtonClick = (event) => {
+      openPopup(popupPhoto);
+      popupPhoto.querySelector(".popup__photo").src = this.link;
+      popupPhoto.querySelector(".popup__photo").alt = `${this.name}`;
+      popupPhoto.querySelector(".popup__photo-title").textContent = this.name;
+    }
+
+    _setEventListeners(){
+        this.deleteButton =  this.newCard.querySelector(".elements__delete-button");
+        this.photoLikeButton =  this.newCard.querySelector(".elements__like-button");
+        this.openPopupPhotoButton =  this.newCard.querySelector(".elements__popup-button");
+
+        this.openPopupPhotoButton.addEventListener("click", this._popupButtonClick);
         
-        photoLikeButton.addEventListener("click", function (event) {
-            photoLikeButton.classList.toggle("elements__like-button_active");
-          });
-          deleteButton.addEventListener("click", function (event) {
-            event.target.closest(".elements__item").remove();
-          });
+        this.photoLikeButton.addEventListener("click", this._likeButtonClick);
+
+        this.deleteButton.addEventListener("click", this._deleteButtonClick);
     }
 
     createCard(){
-        const newCard = this._getTemplate();
+        this.newCard = this._getTemplate();
         
-        this._setEventListeners(newCard);
+        this._setEventListeners();
 
-        newCard.querySelector(".elements__title").textContent = this.name;
-        newCard.querySelector(".elements__photo").src = this.link;
-        newCard.querySelector(".elements__photo").alt = this.name + "";
+        this.newCard.querySelector(".elements__title").textContent = this.name;
+        this.newCard.querySelector(".elements__photo").src = this.link;
+        this.newCard.querySelector(".elements__photo").alt = `${this.name}`;
 
-          return newCard;
+        return  this.newCard;
     }
 
 }

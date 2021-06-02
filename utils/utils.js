@@ -27,4 +27,4 @@ function closePopup(popup) {
     popup.classList.remove("popup_is-opened");
   }
 
-export {openPopup, closeByEsc, closeByOverlay, popupPhoto, closePopup}
+export {openPopup, popupPhoto, closePopup}

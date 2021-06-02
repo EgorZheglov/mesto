@@ -3,8 +3,11 @@ export default class FormValidator{
     constructor(config, form){
         this._config = config;
         this._form = form;
-        this._form.addEventListener("submit", this._submitFormHandlerAdd);
     }
+
+    //Слушатель сабмита позволил себе просто удалить т.к. эта строчка впринципе ничего не делала.
+    //у нас же нету в этом классе submitFormHandler ))
+    //Со слов наставника его и нужно было прописывать в index.js, как я и сделал.
 
     _showInputError = (_inputElement, _errorMessage) => {
         _inputElement.classList.add(this._config.inputErrorClass);
@@ -13,7 +16,7 @@ export default class FormValidator{
         _errorElement.textContent =  _errorMessage;
     }
     
-    hideInputError = (_inputElement) => {
+    _hideInputError = (_inputElement) => {
         const _errorElement = this._form.querySelector(`#${_inputElement.id}-error`);
         _errorElement.classList.remove(this._config.errorClass);
         _inputElement.classList.remove(this._config.inputErrorClass);
@@ -23,42 +26,50 @@ export default class FormValidator{
     
     _checkInputValidity = (_inputElement) => {
        if(_inputElement.validity.valid){
-          this.hideInputError(_inputElement);
+          this._hideInputError(_inputElement);
         } else {
           this._showInputError(_inputElement, _inputElement.validationMessage);
         }
     }
     
     
-    _hasInvalidInput = (_inputList) =>{
-        return _inputList.some(_inputElement => !_inputElement.validity.valid);
+    _hasInvalidInput = () =>{
+        return this._inputList.some(_inputElement => !_inputElement.validity.valid);
     }
     
     
-    _toggleButtonState = (_buttonElement, _inputList) =>{
-     if(this._hasInvalidInput(_inputList)){
-          _buttonElement.disabled = true;
-          _buttonElement.classList.add(this._config.inactiveButtonClass);
+    _toggleButtonState = () =>{
+     if(this._hasInvalidInput()){
+            this._buttonElement.disabled = true;
+            this._buttonElement.classList.add(this._config.inactiveButtonClass);
      } else {
-          _buttonElement.disabled = false;
-          _buttonElement.classList.remove(this._config.inactiveButtonClass);
+            this._buttonElement.disabled = false;
+            this._buttonElement.classList.remove(this._config.inactiveButtonClass);
          }
     }
     
     _setEventListeners = () => {
-        const _buttonElement = this._form.querySelector(this._config.submitButtonSelector);
-        const _inputList = Array.from(this._form.querySelectorAll(this._config.inputSelector));
-        _inputList.forEach((_inputElement) =>{
+        this._buttonElement = this._form.querySelector(this._config.submitButtonSelector);
+        this._inputList = Array.from(this._form.querySelectorAll(this._config.inputSelector));
+        this._inputList.forEach((_inputElement) =>{
             _inputElement.addEventListener('input', () => {
                 this._checkInputValidity(_inputElement);
-                this._toggleButtonState(_buttonElement, _inputList);
+                this._toggleButtonState();
                 }
             );
         })
-        this._toggleButtonState(_buttonElement, _inputList);   
+        this._toggleButtonState(this._buttonElement, this._inputList);   
     }
 
     enableValidation = () => {
         this._setEventListeners();
     }
+
+    removeInputError = () => {
+        this._inputList.forEach((_inputElement) =>{
+            this._hideInputError(_inputElement);
+        });
+    }
+    //Извините, возможно я не совсем правильно понял Ваше замечание относительно removeInputError.
+    //Проблема была в том, что мы вызывали hideinputError с аргументом?
 }

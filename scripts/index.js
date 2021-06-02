@@ -1,6 +1,6 @@
 import FormValidator from './FormValidator.js';
-import Card from './card.js';
-import {openPopup, closeByEsc, closeByOverlay, popupPhoto, closePopup} from '../utils/utils.js';
+import Card from './Card.js';
+import {openPopup, popupPhoto, closePopup} from '../utils/utils.js';
 
 const config = {
   formSelector: '.popup__form',
@@ -20,9 +20,7 @@ const closePopupAddButton = document.querySelector(".popup__close_add");
 const closePopupEditButton = document.querySelector(".popup__close_edit");
 const closePopupPhotoButton = document.querySelector(".popup__close_photo");
 const formEditElement = document.querySelector(".popup__form_edit");
-const formEditValidator = new FormValidator(config, formEditElement);
 const formAddElement = document.querySelector(".popup__form_add");
-const formAddValidator = new FormValidator(config, formAddElement);
 const nameInput = document.querySelector("#name_input");
 const jobInput = document.querySelector("#profession_input");
 const photoNameInput = document.querySelector("#photo-name_input");
@@ -38,19 +36,10 @@ function addCard(cardName, cardLink){
   cardContainer.prepend(cardElement);
 }
 
-for (let i = 0; i < initialCards.length; i += 1) {
-  let currentItem = initialCards[i];
-  addCard(currentItem.name, currentItem.link);
-}
 
-
-function removeInputError(popup, validator){
-  const inputList = Array.from(popup.querySelectorAll(config.inputSelector));
-  inputList.forEach((inputElement) =>{
-     validator.hideInputError(inputElement);
-    }
-  );
-}
+initialCards.forEach((initialCard)=>{
+  addCard(initialCard.name, initialCard.link);
+})
 
 function submitFormHandlerEdit(evt) {
   evt.preventDefault();
@@ -68,15 +57,13 @@ function submitFormHandlerAdd(evt) {
 openPopupButtonEdit.addEventListener("click", function (event) {
   nameInput.value = profileName.textContent;
   jobInput.value = profileProfession.textContent;
-  removeInputError(popupEdit,formEditValidator);
+  formEditValidator.removeInputError();
   openPopup(popupEdit);
-  formEditValidator.enableValidation();
 });
 
 openPopupButtonAdd.addEventListener("click", function (event) {
   formAddElement.reset();
-  formAddValidator.enableValidation();
-  removeInputError(popupAdd,formAddValidator);
+  formAddValidator.removeInputError();
   openPopup(popupAdd);
 });
 
@@ -86,7 +73,6 @@ closePopupAddButton.addEventListener("click", function (event) {
 
 
 closePopupEditButton.addEventListener("click", function (event) {
-  formEditValidator.enableValidation();
   closePopup(popupEdit);
 });
 
@@ -101,4 +87,10 @@ formEditElement.addEventListener("submit", submitFormHandlerEdit);
 
 formAddElement.addEventListener("submit", submitFormHandlerAdd);
 
-//Заранее благодарю за ревью и прошу прощения за недочеты. Эта тема дается особенно тяжело.
+const formEditValidator = new FormValidator(config, formEditElement);
+formEditValidator.enableValidation();
+const formAddValidator = new FormValidator(config, formAddElement);
+formAddValidator.enableValidation();
+
+//Спасибо большое еще раз!
+//Прошу прощения, если что-то не заметил.
