@@ -1,4 +1,4 @@
-import Card from './Card.js';
+import Card from './card.js';
 import FormValidator from './FormValidator.js';
 import {openPopup, popupPhoto, closePopup} from '../utils/utils.js';
 import {initialCards} from './initial-cards.js';
