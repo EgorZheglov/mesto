@@ -5,10 +5,6 @@ export default class FormValidator{
         this._form = form;
     }
 
-    //Слушатель сабмита позволил себе просто удалить т.к. эта строчка впринципе ничего не делала.
-    //у нас же нету в этом классе submitFormHandler ))
-    //Со слов наставника его и нужно было прописывать в index.js, как я и сделал.
-
     _showInputError = (_inputElement, _errorMessage) => {
         _inputElement.classList.add(this._config.inputErrorClass);
         const _errorElement = this._form.querySelector(`#${_inputElement.id}-error`);
@@ -66,10 +62,11 @@ export default class FormValidator{
     }
 
     removeInputError = () => {
-        this._inputList.forEach((_inputElement) =>{
+            this._inputList.forEach((_inputElement) =>{
             this._hideInputError(_inputElement);
+            this._toggleButtonState();
         });
     }
-    //Извините, возможно я не совсем правильно понял Ваше замечание относительно removeInputError.
-    //Проблема была в том, что мы вызывали hideinputError с аргументом?
 }
+
+//Еще раз спасибо за ревью и извините за вопросы.

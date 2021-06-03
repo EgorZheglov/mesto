@@ -1,6 +1,7 @@
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
 import {openPopup, popupPhoto, closePopup} from '../utils/utils.js';
+import {initialCards} from './initial-cards.js';
 
 const config = {
   formSelector: '.popup__form',
@@ -63,7 +64,7 @@ openPopupButtonEdit.addEventListener("click", function (event) {
 
 openPopupButtonAdd.addEventListener("click", function (event) {
   formAddElement.reset();
-  formAddValidator.removeInputError();
+  formAddValidator.removeInputError();//Вызвал toggleButtonState внутри этого метода в card.js.
   openPopup(popupAdd);
 });
 
