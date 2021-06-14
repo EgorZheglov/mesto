@@ -3,6 +3,7 @@ import Card from '../scripts/Card.js';
 import FormValidator from '../scripts/FormValidator.js';
 import {openPopup, popupPhoto, closePopup} from '../utils/utils.js';
 import {initialCards} from '../scripts/initial-cards.js';
+import Section from '../scripts/Section.js';
 
 const config = {
   formSelector: '.popup__form',
@@ -29,19 +30,24 @@ const photoNameInput = document.querySelector("#photo-name_input");
 const photoLinkInput = document.querySelector("#photo-link_input");
 const profileName = document.querySelector(".profile__name");
 const profileProfession = document.querySelector(".profile__profession");
-const cardContainer = document.querySelector(".elements");
-
 
 function addCard(cardName, cardLink){
+  //Создает новый объект класса Card
+  //и добавляет его в секцию.
   const card = new Card(cardName, cardLink, '#card-template');
   const cardElement = card.createCard();
-  cardContainer.prepend(cardElement);
+  cardList.addItem(cardElement);
 }
 
+const cardList = new Section ({
+  items:initialCards,
+  renderer:(card) => {
+    addCard(card.name, card.link);
+  }},
+    '.elements'
+);
 
-initialCards.forEach((initialCard)=>{
-  addCard(initialCard.name, initialCard.link);
-})
+cardList.renderItems();
 
 function submitFormHandlerEdit(evt) {
   evt.preventDefault();
@@ -65,7 +71,7 @@ openPopupButtonEdit.addEventListener("click", function (event) {
 
 openPopupButtonAdd.addEventListener("click", function (event) {
   formAddElement.reset();
-  formAddValidator.removeInputError();//Вызвал toggleButtonState внутри этого метода в card.js.
+  formAddValidator.removeInputError();
   openPopup(popupAdd);
 });
 
@@ -94,5 +100,3 @@ formEditValidator.enableValidation();
 const formAddValidator = new FormValidator(config, formAddElement);
 formAddValidator.enableValidation();
 
-//Спасибо большое еще раз!
-//Прошу прощения, если что-то не заметил.
