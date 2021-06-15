@@ -1,39 +1,26 @@
 import '../pages/index.css'; // webpack подключит css
 import Card from '../scripts/Card.js';
 import FormValidator from '../scripts/FormValidator.js';
-import {openPopup, popupPhoto, closePopup} from '../utils/utils.js';
+import {config} from '../utils/utils.js';
 import {initialCards} from '../scripts/initial-cards.js';
 import Section from '../scripts/Section.js';
+import {PopupWithForm}  from '../scripts/popupWithForm.js';
 
-const config = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__save-button',
-  inactiveButtonClass: 'popup__save-button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input-error_active'
-}
 
 
 const openPopupButtonEdit = document.querySelector(".profile__edit-button");
 const openPopupButtonAdd = document.querySelector(".profile__add-button");
-const popupEdit = document.querySelector(".popup_type_edit");
-const popupAdd = document.querySelector(".popup_type_add");
-const closePopupAddButton = document.querySelector(".popup__close_add");
-const closePopupEditButton = document.querySelector(".popup__close_edit");
-const closePopupPhotoButton = document.querySelector(".popup__close_photo");
 const formEditElement = document.querySelector(".popup__form_edit");
 const formAddElement = document.querySelector(".popup__form_add");
 const nameInput = document.querySelector("#name_input");
 const jobInput = document.querySelector("#profession_input");
-const photoNameInput = document.querySelector("#photo-name_input");
-const photoLinkInput = document.querySelector("#photo-link_input");
 const profileName = document.querySelector(".profile__name");
 const profileProfession = document.querySelector(".profile__profession");
 
+
+
+
 function addCard(cardName, cardLink){
-  //Создает новый объект класса Card
-  //и добавляет его в секцию.
   const card = new Card(cardName, cardLink, '#card-template');
   const cardElement = card.createCard();
   cardList.addItem(cardElement);
@@ -49,54 +36,43 @@ const cardList = new Section ({
 
 cardList.renderItems();
 
-function submitFormHandlerEdit(evt) {
-  evt.preventDefault();
-  profileName.textContent = nameInput.value;
-  profileProfession.textContent = jobInput.value;
-  closePopup(popupEdit);
-}
-
-function submitFormHandlerAdd(evt) {
-  evt.preventDefault();
-  addCard(photoNameInput.value, photoLinkInput.value,);
-  closePopup(popupAdd);
-}
-
 openPopupButtonEdit.addEventListener("click", function (event) {
   nameInput.value = profileName.textContent;
   jobInput.value = profileProfession.textContent;
   formEditValidator.removeInputError();
-  openPopup(popupEdit);
+  popupEdit.openPopup();
+  popupEdit.setEventListeners();
 });
 
-openPopupButtonAdd.addEventListener("click", function (event) {
-  formAddElement.reset();
+
+openPopupButtonAdd.addEventListener('click', function (event) {
   formAddValidator.removeInputError();
-  openPopup(popupAdd);
+  popupAdd.openPopup();
+  popupAdd.setEventListeners();
 });
-
-closePopupAddButton.addEventListener("click", function (event) {
-  closePopup(popupAdd);
-});
-
-
-closePopupEditButton.addEventListener("click", function (event) {
-  closePopup(popupEdit);
-});
-
-
-closePopupPhotoButton.addEventListener("click", function (event) {
-    closePopup(popupPhoto);
-  });
-
-
-formEditElement.addEventListener("submit", submitFormHandlerEdit);
-
-
-formAddElement.addEventListener("submit", submitFormHandlerAdd);
 
 const formEditValidator = new FormValidator(config, formEditElement);
 formEditValidator.enableValidation();
 const formAddValidator = new FormValidator(config, formAddElement);
 formAddValidator.enableValidation();
 
+const popupAdd = new PopupWithForm({
+  popupSelector:'.popup_type_add', 
+  popupSubmitFunction:(inputValues) => {
+      formAddValidator.removeInputError();
+      addCard(inputValues[0].value, inputValues[1].value)
+      popupAdd.closePopup();
+    }
+  }
+);
+
+const popupEdit = new PopupWithForm({
+  popupSelector:'.popup_type_edit', 
+  popupSubmitFunction:(inputValues) => {
+      inputValues = {nameInput, jobInput};
+      profileName.textContent = nameInput.value;
+      profileProfession.textContent = jobInput.value;
+      popupEdit.closePopup();
+    }
+  }
+);

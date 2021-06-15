@@ -1,11 +1,9 @@
-import {openPopup, popupPhoto} from '../utils/utils.js';
-
 export default class Card{
 
     constructor(name, link, templateSelector){
         this.name = name;
         this.link = link;
-        this.templateSelector = templateSelector; //Возможно стоит передавать сразу cardTemplate.content?
+        this.templateSelector = templateSelector; 
     }
     
     _getTemplate(){
@@ -17,20 +15,12 @@ export default class Card{
       return cardElement;
       }
     
-
     _deleteButtonClick = (event) => {
         event.target.closest(".elements__item").remove();
       }
 
     _likeButtonClick = (event) => {
       this.photoLikeButton.classList.toggle("elements__like-button_active");
-    }
-
-    _popupButtonClick = (event) => {
-      openPopup(popupPhoto);
-      popupPhoto.querySelector(".popup__photo").src = this.link;
-      popupPhoto.querySelector(".popup__photo").alt = `${this.name}`;
-      popupPhoto.querySelector(".popup__photo-title").textContent = this.name;
     }
 
     _setEventListeners(){
