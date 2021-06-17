@@ -47,13 +47,11 @@ openPopupButtonEdit.addEventListener("click", function (event) {
   jobInput.value = profileProfession;
   formEditValidator.removeInputError();
   popupEdit.openPopup();
-  popupEdit.setEventListeners();
 });
 
 openPopupButtonAdd.addEventListener('click', function (event) {
   formAddValidator.removeInputError();
   popupAdd.openPopup();
-  popupAdd.setEventListeners();
 });
 
 const formEditValidator = new FormValidator(config, formEditElement);
@@ -72,6 +70,8 @@ const popupAdd = new PopupWithForm({
   }
 );
 
+popupAdd.setEventListeners();
+
 const popupEdit = new PopupWithForm({
   popupSelector:'.popup_type_edit', 
   popupSubmitFunction:(inputValues) => {
@@ -81,3 +81,5 @@ const popupEdit = new PopupWithForm({
     }
   }
 );
+
+popupEdit.setEventListeners();

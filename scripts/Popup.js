@@ -11,10 +11,6 @@ export default class Popup{
         .addEventListener('click',(evt) => { 
             this.closePopup();
         });
-
-        document.addEventListener('keydown', this._closeByEsc)
-
-        this._popup.addEventListener('mousedown', this._closeByOverlay)
     }
     
     _closeByOverlay = (evt) => {
@@ -38,5 +34,9 @@ export default class Popup{
 
     openPopup(){
         this._popup.classList.add('popup_is-opened');
+
+        document.addEventListener('keydown', this._closeByEsc)
+
+        this._popup.addEventListener('mousedown', this._closeByOverlay)
     }
 }
