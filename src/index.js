@@ -1,12 +1,13 @@
-import '../pages/index.css'; // webpack подключит css
-import Card from '../scripts/Card.js';
-import FormValidator from '../scripts/FormValidator.js';
-import {config} from '../utils/utils.js';
-import {initialCards} from '../scripts/initial-cards.js';
-import Section from '../scripts/Section.js';
-import {PopupWithForm}  from '../scripts/popupWithForm.js';
-import {PopupWithImage} from '../scripts/PopupWithImage.js';
-import {UserInfo} from '../scripts/UserInfo.js';
+import '../pages/index.css'; // webpack подключит css 
+import Card from '../scripts/Card.js'; 
+import FormValidator from '../scripts/FormValidator.js'; 
+import {config} from '../utils/utils.js'; 
+import {initialCards} from '../scripts/initial-cards.js'; 
+import Section from '../scripts/Section.js'; 
+import {PopupWithForm}  from '../scripts/PopupWithForm.js'; 
+import {PopupWithImage} from '../scripts/PopupWithImage.js'; 
+import {UserInfo} from '../scripts/UserInfo.js'; 
+
 
 const openPopupButtonEdit = document.querySelector(".profile__edit-button");
 const openPopupButtonAdd = document.querySelector(".profile__add-button");
@@ -83,3 +84,11 @@ const popupEdit = new PopupWithForm({
 );
 
 popupEdit.setEventListeners();
+
+//Заранее благодарю вас за ревью.
+
+
+//Знаю, что просьбы к ревьюверу не одобряются, но тем не менее:
+//Пожалуйста, присылайте скрин ошибок из консоли.
+//Предыдущая версия на моем компьютере запускалась без ошибок т.к. windows
+//не чувствителен к регистру. По итогу найти ошибку очень трудно. 
