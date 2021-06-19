@@ -23,15 +23,17 @@ export class PopupWithForm extends Popup{
 
 
     _getInputValues(){
-        return Array.from(this._popup.querySelectorAll('.popup__input'));
+        const inputArr = Array.from(this._popup.querySelectorAll('.popup__input'));
+        const inputObj = {};
+        inputArr.forEach((element) => {   
+            inputObj[element.name] = element.value;
+        });   
+
+        return inputObj;
     }
 
     closePopup(){
         super.closePopup();
-
-//        this._popup
-//        .querySelector('.popup__form')
-//        .removeEventListener('submit', this._submitFormHandeler);
 
         this._popup
         .querySelector('.popup__form')

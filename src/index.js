@@ -1,12 +1,12 @@
-import '../pages/index.css'; // webpack подключит css 
-import Card from '../scripts/Card.js'; 
-import FormValidator from '../scripts/FormValidator.js'; 
+import './index.css'; // webpack подключит css 
+import Card from '../components/Card.js'; 
+import FormValidator from '../components/FormValidator.js'; 
 import {config} from '../utils/utils.js'; 
-import {initialCards} from '../scripts/initial-cards.js'; 
-import Section from '../scripts/Section.js'; 
-import {PopupWithForm}  from '../scripts/PopupWithForm.js'; 
-import {PopupWithImage} from '../scripts/PopupWithImage.js'; 
-import {UserInfo} from '../scripts/UserInfo.js'; 
+import {initialCards} from '../utils/initial-cards.js'; 
+import Section from '../components/Section.js'; 
+import {PopupWithForm}  from '../components/PopupWithForm.js'; 
+import {PopupWithImage} from '../components/PopupWithImage.js'; 
+import {UserInfo} from '../components/UserInfo.js'; 
 
 
 const openPopupButtonEdit = document.querySelector(".profile__edit-button");
@@ -24,18 +24,18 @@ function addCard(cardName, cardLink){
     templateSelector:'#card-template', 
     handleCardClick:(link, src) => {
       photoPopup.openPopup(link, src)
-      photoPopup.setEventListeners();
     }
   });
   const cardElement = card.createCard();
-  cardList.addItem(cardElement);
+  return cardElement;
 }
 
 
 const cardList = new Section ({
   items:initialCards,
   renderer:(card) => {
-    addCard(card.name, card.link);
+    const newCard = addCard(card.name, card.link);
+    cardList.addItem(newCard);
   }},
     '.elements'
 );
@@ -61,11 +61,13 @@ const formAddValidator = new FormValidator(config, formAddElement);
 formAddValidator.enableValidation();
 
 const photoPopup = new PopupWithImage('.popup_type_photo');
+photoPopup.setEventListeners();
 
 const popupAdd = new PopupWithForm({
   popupSelector:'.popup_type_add', 
-  popupSubmitFunction:(inputValues) => {
-      addCard(inputValues[0].value, inputValues[1].value);
+  popupSubmitFunction:({photonameinput, photolinkinput}) => {
+      const newCard = addCard(photonameinput, photolinkinput);
+      cardList.addItem(newCard);
       popupAdd.closePopup();
     }
   }
@@ -75,9 +77,8 @@ popupAdd.setEventListeners();
 
 const popupEdit = new PopupWithForm({
   popupSelector:'.popup_type_edit', 
-  popupSubmitFunction:(inputValues) => {
-      inputValues = {nameInput, jobInput};
-      userData.setUserInfo(nameInput.value,jobInput.value)
+  popupSubmitFunction: ({nameinput, professioninput}) => {
+      userData.setUserInfo(nameinput, professioninput)
       popupEdit.closePopup();
     }
   }
@@ -85,10 +86,5 @@ const popupEdit = new PopupWithForm({
 
 popupEdit.setEventListeners();
 
-//Заранее благодарю вас за ревью.
-
-
-//Знаю, что просьбы к ревьюверу не одобряются, но тем не менее:
-//Пожалуйста, присылайте скрин ошибок из консоли.
-//Предыдущая версия на моем компьютере запускалась без ошибок т.к. windows
-//не чувствителен к регистру. По итогу найти ошибку очень трудно. 
+//Еще раз большое спасибо за ревью! 
+//Извините, если что-то не заметил.
