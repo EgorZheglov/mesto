@@ -1,12 +1,12 @@
 import './index.css'; // webpack подключит css 
-import Card from './components/Card.js'; 
-import FormValidator from './components/FormValidator.js'; 
+import Card from '../components/Card.js'; 
+import FormValidator from '../components/FormValidator.js'; 
 import {config} from '../utils/utils.js'; 
 import {initialCards} from '../utils/initial-cards.js'; 
-import Section from './components/Section.js'; 
-import {PopupWithForm}  from './components/PopupWithForm.js'; 
-import {PopupWithImage} from './components/PopupWithImage.js'; 
-import {UserInfo} from './components/UserInfo.js'; 
+import Section from '../components/Section.js'; 
+import {PopupWithForm}  from '../components/PopupWithForm.js'; 
+import {PopupWithImage} from '../components/PopupWithImage.js'; 
+import {UserInfo} from '../components/UserInfo.js'; 
 
 
 const openPopupButtonEdit = document.querySelector(".profile__edit-button");
@@ -84,8 +84,6 @@ const popupEdit = new PopupWithForm({
 
 popupEdit.setEventListeners();
 
-//Большое спасибо еще раз.
+//Спасибо вам за ваш труд.
+//Благодарю еще раз.
 
-//Надеюсь, я правильно понял, что коментарий по полям класса относился к классу UserInfo (:
-
-//Извините, если что-то не заметил.
