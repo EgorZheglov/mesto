@@ -1,12 +1,12 @@
 import './index.css'; // webpack подключит css 
-import Card from '../components/Card.js'; 
-import FormValidator from '../components/FormValidator.js'; 
+import Card from './components/Card.js'; 
+import FormValidator from './components/FormValidator.js'; 
 import {config} from '../utils/utils.js'; 
 import {initialCards} from '../utils/initial-cards.js'; 
-import Section from '../components/Section.js'; 
-import {PopupWithForm}  from '../components/PopupWithForm.js'; 
-import {PopupWithImage} from '../components/PopupWithImage.js'; 
-import {UserInfo} from '../components/UserInfo.js'; 
+import Section from './components/Section.js'; 
+import {PopupWithForm}  from './components/PopupWithForm.js'; 
+import {PopupWithImage} from './components/PopupWithImage.js'; 
+import {UserInfo} from './components/UserInfo.js'; 
 
 
 const openPopupButtonEdit = document.querySelector(".profile__edit-button");
@@ -17,7 +17,7 @@ const nameInput = document.querySelector("#name_input");
 const jobInput = document.querySelector("#profession_input");
 const userData = new UserInfo('.profile__name','.profile__profession');
 
-function addCard(cardName, cardLink){
+function createCard(cardName, cardLink){
   const card = new Card({
     name:cardName, 
     link:cardLink, 
@@ -34,8 +34,7 @@ function addCard(cardName, cardLink){
 const cardList = new Section ({
   items:initialCards,
   renderer:(card) => {
-    const newCard = addCard(card.name, card.link);
-    cardList.addItem(newCard);
+    cardList.addItem(createCard(card.name, card.link));
   }},
     '.elements'
 );
@@ -65,9 +64,8 @@ photoPopup.setEventListeners();
 
 const popupAdd = new PopupWithForm({
   popupSelector:'.popup_type_add', 
-  popupSubmitFunction:({photonameinput, photolinkinput}) => {
-      const newCard = addCard(photonameinput, photolinkinput);
-      cardList.addItem(newCard);
+  popupSubmitFunction:({photoNameInput, photoLinkInput}) => {
+      cardList.addItem(createCard(photoNameInput, photoLinkInput));
       popupAdd.closePopup();
     }
   }
@@ -77,8 +75,8 @@ popupAdd.setEventListeners();
 
 const popupEdit = new PopupWithForm({
   popupSelector:'.popup_type_edit', 
-  popupSubmitFunction: ({nameinput, professioninput}) => {
-      userData.setUserInfo(nameinput, professioninput)
+  popupSubmitFunction: ({nameInput, professionInput}) => {
+      userData.setUserInfo(nameInput, professionInput)
       popupEdit.closePopup();
     }
   }
@@ -86,5 +84,8 @@ const popupEdit = new PopupWithForm({
 
 popupEdit.setEventListeners();
 
-//Еще раз большое спасибо за ревью! 
+//Большое спасибо еще раз.
+
+//Надеюсь, я правильно понял, что коментарий по полям класса относился к классу UserInfo (:
+
 //Извините, если что-то не заметил.

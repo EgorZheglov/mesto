@@ -8,20 +8,20 @@
 <body>
   <div class="page">
     <header class="header">
-      <img class="header__logo" src="<%=require('../images/Vector.svg')%>" alt="Лого">
+      <img class="header__logo" src="<%=require('./images/Vector.svg')%>" alt="Лого">
     </header>
     <main class="main">
       <section class="profile">
         <div class="profile__info">
-          <img class="profile__img" src="<%=require('../images/image.jpg')%>" alt="Фото профиля">
+          <img class="profile__img" src="<%=require('./images/image.jpg')%>" alt="Фото профиля">
           <div class="profile__title">
             <h1 class="profile__name">Жеглов Егор</h1>
-            <button class="profile__edit-button link" type="button"><img class="profile__edit-img" src="<%=require('../images/Vector1.svg')%>" alt="Редактировать профиль"></button>
+            <button class="profile__edit-button link" type="button"><img class="profile__edit-img" src="<%=require('./images/Vector1.svg')%>" alt="Редактировать профиль"></button>
             <p class="profile__profession">Исследователь Жака Кусто</p>
           </div>
         </div>
         <button class="profile__add-button link" type="button">
-          <img class="profile__cross" src="<%=require('../images/cross.svg')%>" alt="Добавить изображение">
+          <img class="profile__cross" src="<%=require('./images/cross.svg')%>" alt="Добавить изображение">
         </button>
       </section>
         <section class="elements">
@@ -35,9 +35,9 @@
           <button class="popup__close popup__close_edit link" type="button"></button>
           <h2 class="popup__title">Редактировать профиль</h2>
           <form class = "popup__form popup__form_edit" name = "profileInputNameForm" novalidate>
-            <input class = "popup__input" type = "text" name="nameinput" id="name_input" minlength="2" maxlength="40" required>
+            <input class = "popup__input" type = "text" name="nameInput" id="name_input" minlength="2" maxlength="40" required>
             <span class = "popup__input-error" id="name_input-error"></span>
-            <input class = "popup__input" type = "text" name="professioninput" id="profession_input" minlength="2" maxlength="200" required>
+            <input class = "popup__input" type = "text" name="professionInput" id="profession_input" minlength="2" maxlength="200" required>
             <span class = "popup__input-error" id="profession_input-error"></span>
             <button class = "popup__save-button" type = "submit">Сохранить</button>
           </form>
@@ -48,9 +48,9 @@
           <button class="popup__close popup__close_add link" type="button"></button>
           <h2 class="popup__title">Добавить Фото</h2>
           <form class = "popup__form popup__form_add" name = "profileInputPhotoForm" novalidate>
-            <input class = "popup__input" type = "text" name="photonameinput" id="photo-name_input" placeholder="Название" minlength="2" maxlength="30"  required>
+            <input class = "popup__input" type = "text" name="photoNameInput" id="photo-name_input" placeholder="Название" minlength="2" maxlength="30"  required>
             <span class = "popup__input-error" id="photo-name_input-error"></span>
-            <input class = "popup__input" type = "url" name="photolinkinput" placeholder="Ссылка на картинку" id="photo-link_input"  required>
+            <input class = "popup__input" type = "url" name="photoLinkInput" placeholder="Ссылка на картинку" id="photo-link_input"  required>
             <span class = "popup__input-error" id="photo-link_input-error"></span>
             <button class = "popup__save-button" type = "submit">Сохранить</button>
           </form>
@@ -71,12 +71,11 @@
           <div class="elements__description-content">
           <h2 class="elements__title"></h2>
           <button class="elements__like-button link elements__link" type="button">
-           <!-- <img class="elements__like-img" src="images/Like.svg" alt="Поставить лайк">-->
           </button>
           </div>
           <button class="elements__delete-button link" type="button">
-            <img class="elements__delete-img" src="<%=require('../images/delete1.svg')%>" alt="удалить">
-            <img class="elements__trash-img" src="<%=require('../images/delete2.svg')%>" alt="удалить">
+            <img class="elements__delete-img" src="<%=require('./images/delete1.svg')%>" alt="удалить">
+            <img class="elements__trash-img" src="<%=require('./images/delete2.svg')%>" alt="удалить">
           </button>
       </div>
     </template>
