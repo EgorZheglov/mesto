@@ -15,9 +15,9 @@
         <div class="profile__info">
           <img class="profile__img" src="<%=require('./images/image.jpg')%>" alt="Фото профиля">
           <div class="profile__title">
-            <h1 class="profile__name">Жеглов Егор</h1>
+            <h1 class="profile__name"></h1>
             <button class="profile__edit-button link" type="button"><img class="profile__edit-img" src="<%=require('./images/Vector1.svg')%>" alt="Редактировать профиль"></button>
-            <p class="profile__profession">Исследователь Жака Кусто</p>
+            <p class="profile__profession"></p>
           </div>
         </div>
         <button class="profile__add-button link" type="button">
@@ -70,8 +70,10 @@
         </button>
           <div class="elements__description-content">
           <h2 class="elements__title"></h2>
-          <button class="elements__like-button link elements__link" type="button">
-          </button>
+          <div class='elements__like'>
+            <button class="elements__like-button link elements__link" type="button"></button>
+            <div class='elements__like-quantity'></div>
+          </div>
           </div>
           <button class="elements__delete-button link" type="button">
             <img class="elements__delete-img" src="<%=require('./images/delete1.svg')%>" alt="удалить">

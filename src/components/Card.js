@@ -1,10 +1,13 @@
 export default class Card{
 
-    constructor({name, link, templateSelector, handleCardClick}){
+    constructor({name, link, likeQuantity, id, templateSelector, handleCardClick, putLikeFunc}){
         this.name = name;
         this.link = link;
         this.templateSelector = templateSelector; 
         this._handleCardClick = handleCardClick;
+        this._likeQuantity = likeQuantity;
+        this._id = id; 
+        this._putLikeFunc = putLikeFunc;
     }
     
     _getTemplate(){
@@ -22,6 +25,16 @@ export default class Card{
 
     _likeButtonClick = (event) => {
       this.photoLikeButton.classList.toggle("elements__like-button_active");
+
+      
+
+      if(this.photoLikeButton.classList.contains('elements__like-button_active')){
+        this.newCard.querySelector('.elements__like-quantity').textContent++;
+        this._putLikeFunc(this._id)
+      }
+      else{
+        this.newCard.querySelector('.elements__like-quantity').textContent--;
+      }
     }
 
     _setEventListeners(){
@@ -42,11 +55,10 @@ export default class Card{
         this.newCard = this._getTemplate();
         
         this._setEventListeners();
-
         this.newCard.querySelector(".elements__title").textContent = this.name;
         this.newCard.querySelector(".elements__photo").src = this.link;
         this.newCard.querySelector(".elements__photo").alt = `${this.name}`;
-
+        this.newCard.querySelector('.elements__like-quantity').textContent = this._likeQuantity;
         return  this.newCard;
     }
 
