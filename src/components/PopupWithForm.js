@@ -17,7 +17,7 @@ export class PopupWithForm extends Popup{
 
     _submitFormHandeler = (evt) =>{
         evt.preventDefault();
-
+        this.renderLoading(true);
         this._submitFunction(this._getInputValues()) 
     }
 
@@ -32,9 +32,16 @@ export class PopupWithForm extends Popup{
         return inputObj;
     }
 
+    renderLoading(isLoading){
+        if(isLoading){
+            this._popup.querySelector('.popup__save-button').textContent = 'Сохранение...'
+        }else{
+            this._popup.querySelector('.popup__save-button').textContent = 'Сохраненить'
+        }
+    }
+
     closePopup(){
         super.closePopup();
-
         this._popup
         .querySelector('.popup__form')
         .reset();

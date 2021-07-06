@@ -96,6 +96,22 @@ export default class Api {
       })
     }
 
+    sendUserAvatar(link){
+      //Отправляем измененные данные на сервер.
+      return fetch(`${this._url}/users/me/avatar`, {
+        method:`PATCH`,
+        headers: this._headers,
+        body: JSON.stringify({
+          avatar: `${link}`,
+        })
+      })
+      .then((res) => {
+        if(res.ok){
+          return res.json()
+        }
+        return Promise.reject(res.status)
+      })
+    }
   }
 
   

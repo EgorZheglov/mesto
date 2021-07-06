@@ -23,6 +23,7 @@ const api = new Api({
 api.getUserData() //Отправляем запрос информацию о пользователе
 .then(data => {
   userData.setUserInfo(data.name, data.about) //Полученный результат кладем в класс UserData
+  userData.setUserAvatar(data.avatar); //устанавливаем аватар
 })
 .catch((err) => { 
   console.log(`${err}`) 
@@ -37,13 +38,18 @@ api.getInitialCards() //Отправляем запрос карточек
   console.log(err)
 })
 
+
+const openPopupButtonAvatar = document.querySelector('.profile__avatar-button');
 const openPopupButtonEdit = document.querySelector(".profile__edit-button");
 const openPopupButtonAdd = document.querySelector(".profile__add-button");
 const formEditElement = document.querySelector(".popup__form_edit");
 const formAddElement = document.querySelector(".popup__form_add");
+const formAvatarChangeElement = document.querySelector('.popup__form_avatar');
 const nameInput = document.querySelector("#name_input");
 const jobInput = document.querySelector("#profession_input");
-const userData = new UserInfo('.profile__name','.profile__profession');
+
+
+const userData = new UserInfo('.profile__name','.profile__profession','.profile__img');
 
 function createCard(cardName, cardLink, likes, cardId, owner){
   const card = new Card({
@@ -108,10 +114,18 @@ openPopupButtonAdd.addEventListener('click', function (event) {
   popupAdd.openPopup();
 });
 
+openPopupButtonAvatar.addEventListener('click', function (event){
+  formAvatarValidator.removeInputError();
+  popupAvatar.openPopup();
+})
+
+
 const formEditValidator = new FormValidator(config, formEditElement);
 formEditValidator.enableValidation();
 const formAddValidator = new FormValidator(config, formAddElement);
 formAddValidator.enableValidation();
+const formAvatarValidator = new FormValidator(config, formAvatarChangeElement);
+formAvatarValidator.enableValidation();
 
 const photoPopup = new PopupWithImage('.popup_type_photo');
 photoPopup.setEventListeners();
@@ -123,13 +137,34 @@ const popupAdd = new PopupWithForm({
       .then(res =>{//получаем ее id
         cardList.addItem(createCard(photoNameInput, photoLinkInput, [], res._id, res.owner));
       })
+      .finally(() => {
+        popupAdd.renderLoading(false);
+      })
       popupAdd.closePopup();
     }
   }
 );
 
-
 popupAdd.setEventListeners();
+
+const popupAvatar = new PopupWithForm({
+  popupSelector:'.popup_type_avatar', 
+  popupSubmitFunction:(inputValue) => {
+      api.sendUserAvatar(inputValue.avatarLinkInput)
+      .then(() =>{
+        userData.setUserAvatar(inputValue.avatarLinkInput);
+      })
+      .catch((err) => { 
+        console.log(`${err}`) 
+      })
+      .finally(() => {
+        popupAvatar.renderLoading(false);
+      })
+      popupAvatar.closePopup();
+    }
+  }
+);
+popupAvatar.setEventListeners();
 
 const popupDelete = new ConfimPopup('.popup_type_delete');
 popupDelete.setEventListeners();
@@ -139,6 +174,9 @@ const popupEdit = new PopupWithForm({
   popupSubmitFunction: ({nameInput, professionInput}) => {
       userData.setUserInfo(nameInput, professionInput)
       api.sendUserData(nameInput, professionInput)
+      .finally(() => {
+        popupEdit.renderLoading(false);
+      })
       popupEdit.closePopup();
     }
   }
