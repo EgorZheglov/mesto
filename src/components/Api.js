@@ -31,9 +31,10 @@ export default class Api {
     }
 
 
-    putLike(id){
+    toggleLike(id, method){
+      //Сообщаем серверу, что лайк поставлен
       return fetch(`${this._url}/cards/likes/${id}`, {
-        method: 'PUT',
+        method: `${method}`,
         headers: this._headers,
       })
       .then((res) => {
@@ -43,7 +44,6 @@ export default class Api {
         return Promise.reject(res.status)
       })
     }
-
 
 
     sendCardInfo(name, link){
@@ -64,6 +64,20 @@ export default class Api {
       }) 
     }
 
+    deleteCard(id){
+      //Сообщаем серверу, что лайк поставлен
+      return fetch(`${this._url}/cards/${id}`, {
+        method: `DELETE`,
+        headers: this._headers,
+      })
+      .then((res) => {
+        if(res.ok){
+          return res.json()
+        }
+        return Promise.reject(res.status)
+      })
+    }
+
     sendUserData(name, about){
       //Отправляем измененные данные на сервер.
       return fetch(`${this._url}/users/me`, {
@@ -82,7 +96,7 @@ export default class Api {
       })
     }
 
-
-
   }
+
+  
 

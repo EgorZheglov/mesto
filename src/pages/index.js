@@ -8,6 +8,7 @@ import {PopupWithForm}  from '../components/PopupWithForm.js';
 import {PopupWithImage} from '../components/PopupWithImage.js'; 
 import {UserInfo} from '../components/UserInfo.js'; 
 import Api from '../components/Api.js';
+import { ConfimPopup } from '../components/ConfirmPopup.js';
 
 
 
@@ -30,7 +31,6 @@ api.getUserData() //Отправляем запрос информацию о п
 
 api.getInitialCards() //Отправляем запрос карточек
 .then(data => {
-  console.log(data)
   cardList.renderItems(data); //Полученный массив отрисовывем с помощью CardList - экземпляра класса Section
 })
 .catch((err) => {
@@ -45,27 +45,42 @@ const nameInput = document.querySelector("#name_input");
 const jobInput = document.querySelector("#profession_input");
 const userData = new UserInfo('.profile__name','.profile__profession');
 
-function createCard(cardName, cardLink, likes, id){
-
+function createCard(cardName, cardLink, likes, cardId, owner){
   const card = new Card({
     name:cardName, 
     link:cardLink, 
-    likeQuantity:likes,
-    id:id,
+    likesArray:likes,
+    cardId:cardId,
+    cardOwner:owner,
     templateSelector:'#card-template', 
     handleCardClick:(link, src) => {
       photoPopup.openPopup(link, src)
     },
-    putLikeFunc:(cardId) => {
-     api.putLike(cardId)
-     .then(res => {
-       console.log(res);
-     })
+    toggleLikeFunc:(cardId, method) => {  //Отправляем запрос о постановке/снятии лайка
+     api.toggleLike(cardId, method)
      .catch(err => {
-       console.log('zhopa')
+       console.log(`${err}`)
       })
+    },
+    getUserId:()=>{   //Проверяем, был ли лайк поставлен до этого
+      api.getUserData()
+        .then(res =>{
+          card.isLikedBefore(res._id);
+          card.checkDeleteAbility(res._id);
+        })
+      },
+    handleDeleteClick:(id) => {
+      popupDelete.openPopup();
+      popupDelete.setConfirmHandler(() => { //передаем в класс confirmPopup функцию которая удаляет 
+        api.deleteCard(id)                  //Данные с сервера(через класс API) и из клиета (Через класс Card)
+        .catch(err => {
+          console.log(`${err}`)
+        })
+      card.deleteButtonClick(); 
+      });
     }
   });
+  
   const cardElement = card.createCard();
   return cardElement;
 }
@@ -73,7 +88,7 @@ function createCard(cardName, cardLink, likes, id){
 
 const cardList = new Section ({
   renderer:(card) => {
-    cardList.addItem(createCard(card.name, card.link, card.likes.length, card._id));
+    cardList.addItem(createCard(card.name, card.link, card.likes, card._id, card.owner));
   }},
     '.elements'
 );
@@ -106,14 +121,18 @@ const popupAdd = new PopupWithForm({
   popupSubmitFunction:({photoNameInput, photoLinkInput}) => {
       api.sendCardInfo(photoNameInput, photoLinkInput)//Отправляем карточку на сервер
       .then(res =>{//получаем ее id
-        cardList.addItem(createCard(photoNameInput, photoLinkInput, 0, res._id));
+        cardList.addItem(createCard(photoNameInput, photoLinkInput, [], res._id, res.owner));
       })
       popupAdd.closePopup();
     }
   }
 );
 
+
 popupAdd.setEventListeners();
+
+const popupDelete = new ConfimPopup('.popup_type_delete');
+popupDelete.setEventListeners();
 
 const popupEdit = new PopupWithForm({
   popupSelector:'.popup_type_edit', 

@@ -28,6 +28,7 @@
 @import url(../blocks/elements/__delete-img/elements__delete-img.css);
 @import url(../blocks/elements/__trash-img/elements__trash-img.css);
 @import url(../blocks/elements/__delete-button/elements__delete-button.css);
+@import url(../blocks/elements/__delete-button/_disabled/elements__delete-button_disabled.css);
 @import url(../blocks/elements/__popup-button/elements__popup-button.css);
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__text/footer__text.css);
@@ -35,6 +36,7 @@
 @import url(../blocks/popup/_type/popup_type_add.css);
 @import url(../blocks/popup/_type/popup_type_edit.css);
 @import url(../blocks/popup/_type/popup_type_photo.css);
+@import url(../blocks/popup/_type/popup_type_delete.css);
 @import url(../blocks/popup/__container/popup__container.css);
 @import url(../blocks/popup/__close/popup__close.css);
 @import url(../blocks/popup/__close/_add/popup__close_add.css);
