@@ -2,7 +2,6 @@ import './index.css'; // webpack подключит css
 import Card from '../components/Card.js'; 
 import FormValidator from '../components/FormValidator.js'; 
 import {config} from '../utils/utils.js'; 
-//import {initialCards} from '../utils/initial-cards.js'; 
 import Section from '../components/Section.js'; 
 import {PopupWithForm}  from '../components/PopupWithForm.js'; 
 import {PopupWithImage} from '../components/PopupWithImage.js'; 
@@ -10,7 +9,7 @@ import {UserInfo} from '../components/UserInfo.js';
 import Api from '../components/Api.js';
 import { ConfimPopup } from '../components/ConfirmPopup.js';
 
-
+let userId;
 
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-25',
@@ -22,6 +21,7 @@ const api = new Api({
 
 api.getUserData() //Отправляем запрос информацию о пользователе
 .then(data => {
+  userId = data._id;
   userData.setUserInfo(data.name, data.about) //Полученный результат кладем в класс UserData
   userData.setUserAvatar(data.avatar); //устанавливаем аватар
 })
@@ -47,8 +47,6 @@ const formAddElement = document.querySelector(".popup__form_add");
 const formAvatarChangeElement = document.querySelector('.popup__form_avatar');
 const nameInput = document.querySelector("#name_input");
 const jobInput = document.querySelector("#profession_input");
-
-
 const userData = new UserInfo('.profile__name','.profile__profession','.profile__img');
 
 function createCard(cardName, cardLink, likes, cardId, owner){
@@ -58,6 +56,7 @@ function createCard(cardName, cardLink, likes, cardId, owner){
     likesArray:likes,
     cardId:cardId,
     cardOwner:owner,
+    userId:userId,
     templateSelector:'#card-template', 
     handleCardClick:(link, src) => {
       photoPopup.openPopup(link, src)
@@ -68,25 +67,20 @@ function createCard(cardName, cardLink, likes, cardId, owner){
        console.log(`${err}`)
       })
     },
-    getUserId:()=>{   //Проверяем, был ли лайк поставлен до этого
-      api.getUserData()
-        .then(res =>{
-          card.isLikedBefore(res._id);
-          card.checkDeleteAbility(res._id);
-        })
-      },
     handleDeleteClick:(id) => {
       popupDelete.openPopup();
-      popupDelete.setConfirmHandler(() => { //передаем в класс confirmPopup функцию которая удаляет 
-        api.deleteCard(id)                  //Данные с сервера(через класс API) и из клиета (Через класс Card)
-        .catch(err => {
-          console.log(`${err}`)
+      popupDelete.setConfirmHandler(() => { //передаем в класс confirmPopup функцию которая удаляет Данные с сервера(через класс API) и из клиета (Через класс Card)                  
+        api.deleteCard(id)                  
+        .then(() =>{
+          card.deleteButtonClick(); 
+          popupDelete.closePopup();
         })
-      card.deleteButtonClick(); 
+        .catch(err => {
+          console.log(`ошибка ${err}`)
+        })
       });
     }
   });
-  
   const cardElement = card.createCard();
   return cardElement;
 }
@@ -136,11 +130,14 @@ const popupAdd = new PopupWithForm({
       api.sendCardInfo(photoNameInput, photoLinkInput)//Отправляем карточку на сервер
       .then(res =>{//получаем ее id
         cardList.addItem(createCard(photoNameInput, photoLinkInput, [], res._id, res.owner));
+        popupAdd.closePopup();
+      })
+      .catch((err) => { 
+        console.log(`ошибка:${err}`) 
       })
       .finally(() => {
         popupAdd.renderLoading(false);
       })
-      popupAdd.closePopup();
     }
   }
 );
@@ -155,7 +152,7 @@ const popupAvatar = new PopupWithForm({
         userData.setUserAvatar(inputValue.avatarLinkInput);
       })
       .catch((err) => { 
-        console.log(`${err}`) 
+        console.log(`ошибка:${err}`) 
       })
       .finally(() => {
         popupAvatar.renderLoading(false);
@@ -174,10 +171,15 @@ const popupEdit = new PopupWithForm({
   popupSubmitFunction: ({nameInput, professionInput}) => {
       userData.setUserInfo(nameInput, professionInput)
       api.sendUserData(nameInput, professionInput)
+      .then(()=>{
+        popupEdit.closePopup();
+      })
+      .catch((err) => { 
+        console.log(`ошибка:${err}`) 
+      })
       .finally(() => {
         popupEdit.renderLoading(false);
       })
-      popupEdit.closePopup();
     }
   }
 );
@@ -186,4 +188,5 @@ popupEdit.setEventListeners();
 
 
 
-
+//Прошу прощения, если где-то что-то пропустил. Этот спринт кажется самым сложным за период обучения.
+//Заранее благодарю за ревью!

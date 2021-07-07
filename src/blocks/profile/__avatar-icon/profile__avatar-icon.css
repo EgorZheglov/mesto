@@ -8,10 +8,6 @@
     z-index: 2;
 }
 
-.profile__avatar-icon:hover{
-    z-index: 2;
-}
-
 .profile__avatar-icon::after{
     content:'';
     position:absolute;

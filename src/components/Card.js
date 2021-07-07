@@ -1,6 +1,6 @@
 export default class Card{
 
-    constructor({name, link, likesArray, cardId, cardOwner, templateSelector, handleCardClick, toggleLikeFunc, getUserId, handleDeleteClick}){
+    constructor({name, link, likesArray, cardId, cardOwner, userId, templateSelector, handleCardClick, toggleLikeFunc, handleDeleteClick}){
         this.name = name;
         this.link = link;
         this.templateSelector = templateSelector; 
@@ -8,7 +8,7 @@ export default class Card{
         this._likesArray = likesArray;
         this._cardId = cardId; 
         this._toggleLikeFunc = toggleLikeFunc;
-        this._getUserId = getUserId;
+        this._userId = userId;
         this._owner = cardOwner;
         this._handleDeleteClick = handleDeleteClick;
     }
@@ -42,21 +42,25 @@ export default class Card{
         this.photoLikeButton =  this.newCard.querySelector(".elements__like-button");
         this.openPopupPhotoButton =  this.newCard.querySelector(".elements__popup-button");
 
+        this._isLikedBefore();
+
+        this._checkDeleteAbility();
+        
         this.openPopupPhotoButton.addEventListener("click", (evt) =>{
           this._handleCardClick(this.name, this.link);
         });
         
         this.photoLikeButton.addEventListener("click", this._likeButtonClick);
 
-        this.deleteButton.addEventListener("click", (evt) =>{
+        this.deleteButton.addEventListener('click', (evt) =>{
           this._handleDeleteClick(this._cardId);
         });
     }
 
 
-    isLikedBefore(userId){ //Проверяем ставил Юзер лайк до этого момента через user id
+    _isLikedBefore(){ //Проверяем ставил Юзер лайк до этого момента через user id
       let isLiked = this._likesArray.some(likeOwner => {
-        return likeOwner._id === userId;
+        return likeOwner._id === this._userId;
       })
        
         if(isLiked){
@@ -65,8 +69,8 @@ export default class Card{
     }
 
 
-    checkDeleteAbility(userId){//Проверяем, может ли юзер удалить карточку.(Не может, если не он ее создал.)
-      if(this._owner._id !== userId){
+    _checkDeleteAbility(){//Проверяем, может ли юзер удалить карточку.(Не может, если не он ее создал.)
+      if(this._owner._id !== this._userId){
         this.deleteButton.classList.add('elements__delete-button_disabled')
       }
     }
@@ -74,7 +78,6 @@ export default class Card{
     createCard(){
         this.newCard = this._getTemplate(); 
       
-        this._getUserId();  //Берем userId через слабое связывание
         this._setEventListeners();
         this.newCard.querySelector(".elements__title").textContent = this.name;
         this.newCard.querySelector(".elements__photo").src = this.link;
