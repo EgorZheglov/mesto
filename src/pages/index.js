@@ -147,7 +147,8 @@ const popupAvatar = new PopupWithForm({
   popupSubmitFunction:(inputValue) => {
       api.sendUserAvatar(inputValue.avatarLinkInput)
       .then(() =>{
-        userData.setUserAvatar(inputValue.avatarLinkInput);  
+        userData.setUserAvatar(inputValue.avatarLinkInput); 
+        popupAvatar.closePopup() 
       })
       .catch((err) => { 
         console.log(`ошибка:${err}`) 
@@ -185,5 +186,6 @@ popupEdit.setEventListeners();
 
 
 
-//Большое спасибо за качественные комментарии (;
+//Большое спасибо еще раз!
+
 
