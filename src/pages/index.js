@@ -26,7 +26,7 @@ Promise.all([api.getUserData(), api.getInitialCards()]) //Получаем на�
   
   userData.setUserInfo(userInfo.name, userInfo.about)
   userData.setUserAvatar(userInfo.avatar)
-
+  
   cardList.renderItems(initialCards)
 })
 .catch((err) => { 
