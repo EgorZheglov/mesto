@@ -9,7 +9,7 @@ import {UserInfo} from '../components/UserInfo.js';
 import Api from '../components/Api.js';
 import { ConfimPopup } from '../components/ConfirmPopup.js';
 
-let userId
+let userId; //Объявляем переменную, в которую при первой возможности запишем id
 
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-25',
@@ -20,14 +20,14 @@ const api = new Api({
 });
 
 
-Promise.all([api.getUserData(), api.getInitialCards()]) //Получаем начальные данныеД
-.then(values => {
-  userId = values[0]._id;
+Promise.all([api.getUserData(), api.getInitialCards()]) //Получаем начальные данные
+.then(([userInfo, initialCards]) => {
+  userId = userInfo._id;
   
-  userData.setUserInfo(values[0].name, values[0].about)
-  userData.setUserAvatar(values[0].avatar)
+  userData.setUserInfo(userInfo.name, userInfo.about)
+  userData.setUserAvatar(userInfo.avatar)
 
-  cardList.renderItems(values[1])
+  cardList.renderItems(initialCards)
 })
 .catch((err) => { 
     console.log(`Ошибка загрузки начальных данных: ${err}`) 
