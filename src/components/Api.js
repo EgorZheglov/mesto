@@ -4,30 +4,30 @@ export default class Api {
       this._headers = headers;
     }
   
+    _checkResponse(res) {
+      //проверка ответа на запрос
+        if (res.ok) {
+          return res.json()
+        }
+        return Promise.reject(res.status)
+      }
+
+
     getUserData(){
       //Получаем информацию пользователе с сервера.
         return fetch(`${this._url}/users/me`,{
           headers: this._headers
         })
-        .then((res) => {
-          if (res.ok) {
-            return res.json()
-          }
-          return Promise.reject(res.status)
-      });
+        .then(this._checkResponse)
     }
+
 
     getInitialCards(){
       //получаем карточки, загруженные на сервер
       return fetch(`${this._url}/cards`,{
         headers: this._headers
       })
-      .then((res) => {
-        if(res.ok){
-          return res.json()
-        }
-        return Promise.reject(res.status)
-      })
+      .then(this._checkResponse)
     }
 
 
@@ -37,12 +37,7 @@ export default class Api {
         method: `${method}`,
         headers: this._headers,
       })
-      .then((res) => {
-        if(res.ok){
-          return res.json()
-        }
-        return Promise.reject(res.status)
-      })
+      .then(this._checkResponse)
     }
 
 
@@ -56,12 +51,7 @@ export default class Api {
           link: `${link}`
         })
       })
-      .then((res) => {
-        if(res.ok){
-          return res.json()
-        }
-        return Promise.reject(res.status)
-      }) 
+      .then(this._checkResponse) 
     }
 
     deleteCard(id){
@@ -70,12 +60,7 @@ export default class Api {
         method: `DELETE`,
         headers: this._headers,
       })
-      .then((res) => {
-        if(res.ok){
-          return res.json()
-        }
-        return Promise.reject(res.status)
-      })
+      .then(this._checkResponse)
     }
 
     sendUserData(name, about){
@@ -88,12 +73,7 @@ export default class Api {
           about: `${about}`
         })
       })
-      .then((res) => {
-        if(res.ok){
-          return res.json()
-        }
-        return Promise.reject(res.status)
-      })
+      .then(this._checkResponse)
     }
 
     sendUserAvatar(link){
@@ -105,12 +85,7 @@ export default class Api {
           avatar: `${link}`,
         })
       })
-      .then((res) => {
-        if(res.ok){
-          return res.json()
-        }
-        return Promise.reject(res.status)
-      })
+      .then(this._checkResponse)
     }
   }
 

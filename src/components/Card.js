@@ -25,16 +25,20 @@ export default class Card{
         this.newCard.remove();
       }
 
-    _likeButtonClick = (event) => {//При нажатии на лайк отправляем нужный хапрос в зависимости от того, был ли до этого поставлен лайк
-      this.photoLikeButton.classList.toggle("elements__like-button_active");
+    _likeButtonClick = (event) => {//При нажатии на лайк отправляем нужный запрос в зависимости от того, был ли до этого поставлен лайк
       if(this.photoLikeButton.classList.contains('elements__like-button_active')){
-        this.newCard.querySelector('.elements__like-quantity').textContent++;
-        this._toggleLikeFunc(this._cardId,'PUT')
-      }
-      else{
-        this.newCard.querySelector('.elements__like-quantity').textContent--;
         this._toggleLikeFunc(this._cardId,'DELETE')
       }
+      else{
+        this._toggleLikeFunc(this._cardId,'PUT')
+      }
+    }
+
+
+    updateLikes(likesArr){
+      this.photoLikeButton.classList.toggle('elements__like-button_active');
+
+      this.newCard.querySelector('.elements__like-quantity').textContent = likesArr.length
     }
 
     _setEventListeners(){

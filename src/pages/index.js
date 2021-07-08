@@ -9,7 +9,7 @@ import {UserInfo} from '../components/UserInfo.js';
 import Api from '../components/Api.js';
 import { ConfimPopup } from '../components/ConfirmPopup.js';
 
-let userId;
+let userId
 
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-25',
@@ -19,23 +19,18 @@ const api = new Api({
   }
 });
 
-api.getUserData() //Отправляем запрос информацию о пользователе
-.then(data => {
-  userId = data._id;
-  userData.setUserInfo(data.name, data.about) //Полученный результат кладем в класс UserData
-  userData.setUserAvatar(data.avatar); //устанавливаем аватар
+
+Promise.all([api.getUserData(), api.getInitialCards()]) //Получаем начальные данныеД
+.then(values => {
+  userId = values[0]._id;
+  
+  userData.setUserInfo(values[0].name, values[0].about)
+  userData.setUserAvatar(values[0].avatar)
+
+  cardList.renderItems(values[1])
 })
 .catch((err) => { 
-  console.log(`${err}`) 
-})
-
-
-api.getInitialCards() //Отправляем запрос карточек
-.then(data => {
-  cardList.renderItems(data); //Полученный массив отрисовывем с помощью CardList - экземпляра класса Section
-})
-.catch((err) => {
-  console.log(err)
+    console.log(`Ошибка загрузки начальных данных: ${err}`) 
 })
 
 
@@ -63,6 +58,9 @@ function createCard(cardName, cardLink, likes, cardId, owner){
     },
     toggleLikeFunc:(cardId, method) => {  //Отправляем запрос о постановке/снятии лайка
      api.toggleLike(cardId, method)
+     .then(res => {
+        card.updateLikes(res.likes)
+    })
      .catch(err => {
        console.log(`${err}`)
       })
@@ -149,7 +147,7 @@ const popupAvatar = new PopupWithForm({
   popupSubmitFunction:(inputValue) => {
       api.sendUserAvatar(inputValue.avatarLinkInput)
       .then(() =>{
-        userData.setUserAvatar(inputValue.avatarLinkInput);
+        userData.setUserAvatar(inputValue.avatarLinkInput);  
       })
       .catch((err) => { 
         console.log(`ошибка:${err}`) 
@@ -157,7 +155,6 @@ const popupAvatar = new PopupWithForm({
       .finally(() => {
         popupAvatar.renderLoading(false);
       })
-      popupAvatar.closePopup();
     }
   }
 );
@@ -169,9 +166,9 @@ popupDelete.setEventListeners();
 const popupEdit = new PopupWithForm({
   popupSelector:'.popup_type_edit', 
   popupSubmitFunction: ({nameInput, professionInput}) => {
-      userData.setUserInfo(nameInput, professionInput)
       api.sendUserData(nameInput, professionInput)
       .then(()=>{
+        userData.setUserInfo(nameInput, professionInput)
         popupEdit.closePopup();
       })
       .catch((err) => { 
@@ -188,5 +185,5 @@ popupEdit.setEventListeners();
 
 
 
-//Прошу прощения, если где-то что-то пропустил. Этот спринт кажется самым сложным за период обучения.
-//Заранее благодарю за ревью!
+//Большое спасибо за качественные комментарии (;
+
